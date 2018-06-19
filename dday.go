@@ -1,25 +1,39 @@
 package main
 
 import (
+	"os"
+
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
 
-func DdayCounter() {
-
-	var TextCounter, Day *walk.TextEdit
-
+func DdaySet() {
+	var Day *walk.TextEdit
 	MainWindow{
-		Title:   "다가오는 마감",
-		MinSize: Size{400, 400},
+		Title:   "마감일을 입력하세요",
+		MinSize: Size{600, 600},
 		Layout:  VBox{},
 		Children: []Widget{
 			HSplitter{
 				Children: []Widget{
-					TextEdit{AssignTo: &TextCounter},
-					TextEdit{AssignTo: &Day, ReadOnly: true},
+					Label{
+						Text: "마감일을 2018-06-06 형태로 입력해 주세요/",
+					},
+					TextEdit{AssignTo: &Day},
+
+					PushButton{
+						Text: "마감일 등록",
+						OnClicked: func() {
+							var file, _ = os.OpenFile("C:\\temp\\test.txt", os.O_RDWR|os.O_CREATE, 0644)
+							defer file.Close()
+							file.WriteString(Day.Text())
+
+							file.Sync()
+						},
+					},
 				},
 			},
 		},
 	}.Run()
+
 }

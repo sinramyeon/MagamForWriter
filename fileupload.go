@@ -21,7 +21,7 @@ type Directory struct {
 type TxtFile struct {
 	name  string
 	path  string
-	count string
+	count int
 }
 
 func NewDirectory(name string, parent *Directory) *Directory {
@@ -314,18 +314,25 @@ func Fileupload() {
 
 						} else {
 							// 2. 텍스트 파일 불러오기
-
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
 							txt := txtFileOpen(url)
-
-							TxtFile {
-								name : tableModel.items[index].Name,
-								path : url
-								count : CountChar(txt)
-							}
+							/*
+								TxtFile{
+									name:  tableModel.items[index].Name,
+									path:  url,
+									count: CountChar(txt),
+								}*/
 
 							// 3. 마감일 정하기
+							DdaySet()
+
+							// 4. 알리미로 넘어가기
+							walk.MsgBox(
+								mainWindow,
+								"테스트",
+								txt,
+								walk.MsgBoxOK|walk.MsgBoxIconError)
 						}
 
 					}
@@ -351,35 +358,20 @@ func Fileupload() {
 func txtFileOpen(filepath string) string {
 	file, err := os.Open(filepath)
 	if err != nil {
-		walk.MsgBox(
-			mainWindow,
-			"파일 오류",
-			err,
-			walk.MsgBoxOK|walk.MsgBoxIconError)
-		return
+		return err.Error()
 	}
 	defer file.Close()
 
 	fi, err := file.Stat()
 	if err != nil {
-		walk.MsgBox(
-			mainWindow,
-			"파일오류",
-			err,
-			walk.MsgBoxOK|walk.MsgBoxIconError)
-		return
+		return err.Error()
 	}
 
 	var data = make([]byte, fi.Size())
 
-	n, err := file.Read(data)
+	_, err = file.Read(data)
 	if err != nil {
-		walk.MsgBox(
-			mainWindow,
-			"파일오류",
-			err,
-			walk.MsgBoxOK|walk.MsgBoxIconError)
-		return
+		return err.Error()
 	}
 
 	return string(data)

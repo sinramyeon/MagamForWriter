@@ -8,7 +8,7 @@ func main() {
 
 	MainWindow{
 		Title:   "마감 안내기",
-		MinSize: Size{300, 400},
+		MinSize: Size{100, 400},
 		Layout:  VBox{},
 		Children: []Widget{
 
