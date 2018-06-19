@@ -7,22 +7,21 @@ import (
 func main() {
 
 	MainWindow{
-		Title:   "마감하세요",
-		MinSize: Size{600, 400},
+		Title:   "마감 안내기",
+		MinSize: Size{300, 400},
 		Layout:  VBox{},
 		Children: []Widget{
-			HSplitter{
-				PushButton{
-					Text: "작업파일 등록하기",
-					OnClicked: func() {
-						Fileupload()
-					},
-				},
 
-				PushButton{
-					Text: "마감현황 보기",
-					OnClicked: func() {
-					},
+			PushButton{
+				Text: "작업 등록하기",
+				OnClicked: func() {
+					Fileupload()
+				},
+			},
+			PushButton{
+				Text: "마감일 안내받기",
+				OnClicked: func() {
+
 				},
 			},
 		},

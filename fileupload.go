@@ -289,20 +289,17 @@ func Fileupload() {
 				},
 			},
 
-			TableView{
+			PushButton{
+				Text: "등록하기",
+				OnClicked: func() {
+					// 1. txt일때만 등록
 
-				PushButton{
-					Text: "등록하기",
-					OnClicked: func() {
-						// 1. txt일때만 등록
+					//dir := treeView.CurrentItem().(*Directory)
 
-						dir := treeView.CurrentItem().(*Directory)
-
-						// 2. txt일때 >
-						//    가. 글자수 세기
-						//    나. 마감일 정하기
-						// 3.  새 창에 알림 띄우기 : 글자수, 마감일
-					},
+					// 2. txt일때 >
+					//    가. 글자수 세기
+					//    나. 마감일 정하기
+					// 3.  새 창에 알림 띄우기 : 글자수, 마감일
 				},
 			},
 		},
