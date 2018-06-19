@@ -3,33 +3,30 @@ package main
 import (
 	"strings"
 
-	. "github.com/lxn/walk"
+	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
 
 func main() {
-
 	var inTE, outTE *walk.TextEdit
 
 	MainWindow{
-		Title:   "Test",
-		MinSize: Size{200, 400},
+		Title:   "SCREAMO",
+		MinSize: Size{600, 400},
 		Layout:  VBox{},
 		Children: []Widget{
 			HSplitter{
-				Chlidren: []Widget{
+				Children: []Widget{
 					TextEdit{AssignTo: &inTE},
-					TextEdit{AssignTo: &outTe, ReadOnly: true},
+					TextEdit{AssignTo: &outTE, ReadOnly: true},
 				},
 			},
-
 			PushButton{
-				Text: "Button",
+				Text: "SCREAM",
 				OnClicked: func() {
-					outTE.SetText(strings.ToUpeer(inTE.Text()))
+					outTE.SetText(strings.ToUpper(inTE.Text()))
 				},
 			},
 		},
 	}.Run()
-
 }
