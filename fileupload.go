@@ -213,7 +213,7 @@ func shouldExclude(name string) bool {
 	return false
 }
 
-func main() {
+func Fileupload() {
 	var mainWindow *walk.MainWindow
 	var splitter *walk.Splitter
 	var treeView *walk.TreeView
