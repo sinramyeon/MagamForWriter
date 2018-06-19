@@ -313,6 +313,7 @@ func Fileupload() {
 								walk.MsgBoxOK|walk.MsgBoxIconError)
 
 						} else {
+
 							// 2. 텍스트 파일 불러오기
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
@@ -325,6 +326,7 @@ func Fileupload() {
 								}*/
 
 							// 3. 마감일 정하기
+
 							DdaySet()
 
 							// 4. 알리미로 넘어가기
@@ -333,6 +335,9 @@ func Fileupload() {
 								"테스트",
 								txt,
 								walk.MsgBoxOK|walk.MsgBoxIconError)
+
+							mainWindow.Close()
+
 						}
 
 					}

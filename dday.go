@@ -9,10 +9,14 @@ import (
 
 func DdaySet() {
 	var Day *walk.TextEdit
+
+	var mainWindow *walk.MainWindow
+
 	MainWindow{
-		Title:   "마감일을 입력하세요",
-		MinSize: Size{600, 600},
-		Layout:  VBox{},
+		AssignTo: &mainWindow,
+		Title:    "마감일을 입력하세요",
+		MinSize:  Size{600, 600},
+		Layout:   VBox{},
 		Children: []Widget{
 			HSplitter{
 				Children: []Widget{
@@ -24,11 +28,12 @@ func DdaySet() {
 					PushButton{
 						Text: "마감일 등록",
 						OnClicked: func() {
-							var file, _ = os.OpenFile("C:\\temp\\test.txt", os.O_RDWR|os.O_CREATE, 0644)
+							var file, _ = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE, 0644)
 							defer file.Close()
 							file.WriteString(Day.Text())
 
 							file.Sync()
+							mainWindow.Close()
 						},
 					},
 				},
