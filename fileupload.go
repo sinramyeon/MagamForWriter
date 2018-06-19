@@ -4,11 +4,11 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
-)
 
-import (
 	"github.com/lxn/walk"
+
 	. "github.com/lxn/walk/declarative"
 )
 
@@ -241,6 +241,7 @@ func Fileupload() {
 						Model:    treeModel,
 						OnCurrentItemChanged: func() {
 							dir := treeView.CurrentItem().(*Directory)
+
 							if err := tableModel.SetDirPath(dir.Path()); err != nil {
 								walk.MsgBox(
 									mainWindow,
@@ -272,6 +273,7 @@ func Fileupload() {
 						},
 						Model: tableModel,
 						OnCurrentIndexChanged: func() {
+
 							var url string
 							if index := tableView.CurrentIndex(); index > -1 {
 								name := tableModel.items[index].Name
@@ -282,6 +284,7 @@ func Fileupload() {
 							webView.SetURL(url)
 						},
 					},
+
 					WebView{
 						AssignTo:      &webView,
 						StretchFactor: 2,
@@ -294,6 +297,19 @@ func Fileupload() {
 				OnClicked: func() {
 					// 1. txt일때만 등록
 
+					if index := tableView.CurrentIndex(); index > -1 {
+
+						if !strings.Contains(tableModel.items[index].Name, "txt") {
+
+							walk.MsgBox(
+								mainWindow,
+								"파일 형식 오류",
+								".txt파일만 지원합니다",
+								walk.MsgBoxOK|walk.MsgBoxIconError)
+
+						}
+
+					}
 					//dir := treeView.CurrentItem().(*Directory)
 
 					// 2. txt일때 >
