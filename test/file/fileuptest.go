@@ -1,14 +1,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"path/filepath"
 	"time"
-)
 
-import (
 	"github.com/lxn/walk"
+
 	. "github.com/lxn/walk/declarative"
 )
 
@@ -314,4 +314,29 @@ func main() {
 	splitter.SetFixed(tableView, true)
 
 	mainWindow.Run()
+}
+
+func txtFileOpen(filepath string) string {
+	file, err := os.Open(filepath)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer file.Close()
+
+	fi, err := file.Stat()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	var data = make([]byte, fi.Size())
+
+	n, err := file.Read(data)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	return string(data)
 }
