@@ -228,7 +228,7 @@ func main() {
 
 	if err := (MainWindow{
 		AssignTo: &mainWindow,
-		Title:    "Walk File Browser Example",
+		Title:    "작업할 파일을 고르세요(.txt만 지원)",
 		MinSize:  Size{600, 400},
 		Size:     Size{1024, 640},
 		Layout:   HBox{MarginsZero: true},
@@ -285,6 +285,17 @@ func main() {
 					WebView{
 						AssignTo:      &webView,
 						StretchFactor: 2,
+					},
+
+					PushButton{
+						Text: "등록하기",
+						OnClicked: func() {
+							// 1. txt일때만 등록
+							// 2. txt일때 >
+							//    가. 글자수 세기
+							//    나. 마감일 정하기
+							// 3.  새 창에 알림 띄우기 : 글자수, 마감일
+						},
 					},
 				},
 			},
