@@ -295,8 +295,7 @@ func Fileupload() {
 			PushButton{
 				Text: "등록하기",
 				OnClicked: func() {
-					// 1. txt일때만 등록
-
+					// 1. txt일때만 등록(나중에 doc도 서포트하자)
 					if index := tableView.CurrentIndex(); index > -1 {
 
 						if !strings.Contains(tableModel.items[index].Name, "txt") {
@@ -307,6 +306,11 @@ func Fileupload() {
 								".txt파일만 지원합니다",
 								walk.MsgBoxOK|walk.MsgBoxIconError)
 
+						} else {
+
+							// 2. 텍스트 글자수 세기
+
+							// 3. 마감일 정하기
 						}
 
 					}
