@@ -26,7 +26,7 @@ func main() {
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
-
+					Alarm()
 				},
 			},
 		},

@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"strconv"
 	"strings"
 	"time"
 
@@ -319,27 +318,22 @@ func Fileupload() {
 							// 2. 텍스트 파일 불러오기
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
-							txt := txtFileOpen(url)
 
 							txtFile := TxtFile{}
 							txtFile.path = url
 							txtFile.name = filepath.Base(url)
+
 							// 3. 마감일 정하기
 							txtFile.DdaySet()
 							saveFile(txtFile.dday, txtFile.path)
+
 							// 4. 알리미로 넘어가기
 							mainWindow.Close()
-							Alarm(txtFile.path, txtFile.dday, strconv.Itoa(CountChar(txt)))
+							Alarm()
 
 						}
 
 					}
-					//dir := treeView.CurrentItem().(*Directory)
-
-					// 2. txt일때 >
-					//    가. 글자수 세기
-					//    나. 마감일 정하기
-					// 3.  새 창에 알림 띄우기 : 글자수, 마감일
 				},
 			},
 		},
@@ -378,7 +372,7 @@ func txtFileOpen(filepath string) string {
 func saveFile(day, filepath string) error {
 	txt := day + ";" + filepath
 
-	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE, 0644)
+	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_APPEND, 0644)
 	defer file.Close()
 
 	_, err = file.WriteString(txt)
