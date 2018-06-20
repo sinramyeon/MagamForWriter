@@ -325,8 +325,14 @@ func Fileupload() {
 
 							// 3. 마감일 정하기
 							txtFile.DdaySet()
-							saveFile(txtFile.dday, txtFile.path)
-
+							err := saveFile(txtFile.dday, txtFile.path)
+							if err != nil {
+								walk.MsgBox(
+									nil,
+									"Error",
+									err.Error(),
+									walk.MsgBoxOK|walk.MsgBoxIconError)
+							}
 							// 4. 알리미로 넘어가기
 							mainWindow.Close()
 							Alarm()
@@ -371,8 +377,7 @@ func txtFileOpen(filepath string) string {
 
 func saveFile(day, filepath string) error {
 	txt := day + ";" + filepath
-
-	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_APPEND, 0644)
+	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	defer file.Close()
 
 	_, err = file.WriteString(txt)
