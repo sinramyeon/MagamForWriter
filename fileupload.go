@@ -23,6 +23,7 @@ type TxtFile struct {
 	name  string
 	path  string
 	count int
+	dday  string
 }
 
 func NewDirectory(name string, parent *Directory) *Directory {
@@ -319,14 +320,16 @@ func Fileupload() {
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
 							txt := txtFileOpen(url)
+
+							txtFile := TxtFile{}
+							txtFile.path = url
+							txtFile.name = filepath.Base(url)
 							// 3. 마감일 정하기
-
-							day := DdaySet()
-							saveFile(day, url)
-
+							txtFile.DdaySet()
+							saveFile(txtFile.dday, txtFile.path)
 							// 4. 알리미로 넘어가기
-							Alarm(url, day, strconv.Itoa(CountChar(txt)))
 							mainWindow.Close()
+							Alarm(txtFile.path, txtFile.dday, strconv.Itoa(CountChar(txt)))
 
 						}
 
@@ -373,10 +376,12 @@ func txtFileOpen(filepath string) string {
 }
 
 func saveFile(day, filepath string) error {
+	txt := day + ";" + filepath
 
 	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE, 0644)
 	defer file.Close()
-	_, err = file.WriteString(day, filepath)
+
+	_, err = file.WriteString(txt)
 
 	file.Sync()
 

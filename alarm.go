@@ -33,8 +33,6 @@ func Alarm(name, day, count string) {
 			Label{
 				Text: count,
 			},
-		
-			},
 		},
 	}.Run()
 }

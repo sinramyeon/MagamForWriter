@@ -1,13 +1,11 @@
 package main
 
 import (
-	"os"
-
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
 
-func DdaySet() int {
+func (txtFile *TxtFile) DdaySet() {
 	var Day *walk.TextEdit
 	var mainWindow *walk.MainWindow
 
@@ -27,9 +25,8 @@ func DdaySet() int {
 					PushButton{
 						Text: "마감일 등록",
 						OnClicked: func() {
-
+							txtFile.dday = Day.Text()
 							mainWindow.Close()
-							return Day.Text()
 						},
 					},
 				},
@@ -37,15 +34,4 @@ func DdaySet() int {
 		},
 	}.Run()
 
-}
-
-func SaveFile(day, filepath string) error {
-
-	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE, 0644)
-	defer file.Close()
-	_, err = file.WriteString(day, filepath)
-
-	file.Sync()
-
-	return err
 }
