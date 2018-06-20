@@ -4,6 +4,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -318,24 +319,13 @@ func Fileupload() {
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
 							txt := txtFileOpen(url)
-							/*
-								TxtFile{
-									name:  tableModel.items[index].Name,
-									path:  url,
-									count: CountChar(txt),
-								}*/
-
 							// 3. 마감일 정하기
 
-							DdaySet()
+							day := DdaySet()
+							saveFile(day, url)
 
 							// 4. 알리미로 넘어가기
-							walk.MsgBox(
-								mainWindow,
-								"테스트",
-								txt,
-								walk.MsgBoxOK|walk.MsgBoxIconError)
-
+							Alarm(url, day, strconv.Itoa(CountChar(txt)))
 							mainWindow.Close()
 
 						}
@@ -380,4 +370,15 @@ func txtFileOpen(filepath string) string {
 	}
 
 	return string(data)
+}
+
+func saveFile(day, filepath string) error {
+
+	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE, 0644)
+	defer file.Close()
+	_, err = file.WriteString(day, filepath)
+
+	file.Sync()
+
+	return err
 }
