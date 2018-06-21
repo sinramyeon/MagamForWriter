@@ -5,20 +5,22 @@ import (
 	"unicode/utf8"
 )
 
-func CountAll(s string) int{
+func CountAll(s string) int {
 	return len([]rune(s))
 }
 
-func CountRemoveBlank(s string) int{
-	var cnt_blank int
-	stored_text_length := CountAll(s)
+func CountRemoveBlank(s string) int {
+	var cntBlank int
+	textLength := CountAll(s)
 
-	for(int i=0; i<stored_text_length; i++){
-		if(s.charAt(i) == ' ' || s.charAt(i) == '\n' || s.charAt(i) == '\t')
-			cnt_blank++;
+	for i := 0; i < textLength; i++ {
+		if string([]rune(s)[i]) == " " || string([]rune(s)[i]) == "\n" || string([]rune(s)[i]) == "\t" {
+
+			cntBlank++
+		}
 	}
-	exclude_blank_words := total_count_words -  cnt_blank;
-	return exclude_blank_words
+	excludeBlank := textLength - cntBlank
+	return excludeBlank
 }
 
 // https://engineering.linecorp.com/ko/blog/detail/52

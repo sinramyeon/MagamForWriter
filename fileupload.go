@@ -37,8 +37,6 @@ func (d *Directory) Text() string {
 
 func (d *Directory) Parent() walk.TreeItem {
 	if d.parent == nil {
-		// We can't simply return d.parent in this case, because the interface
-		// value then would not be nil.
 		return nil
 	}
 
@@ -47,8 +45,6 @@ func (d *Directory) Parent() walk.TreeItem {
 
 func (d *Directory) ChildCount() int {
 	if d.children == nil {
-		// It seems this is the first time our child count is checked, so we
-		// use the opportunity to populate our direct children.
 		if err := d.ResetChildren(); err != nil {
 			log.Print(err)
 		}
@@ -334,8 +330,8 @@ func Fileupload() {
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
 							// 4. 알리미로 넘어가기
-							mainWindow.Close()
 							Alarm()
+							mainWindow.Close()
 
 						}
 
@@ -376,7 +372,7 @@ func txtFileOpen(filepath string) string {
 }
 
 func saveFile(day, filepath string) error {
-	txt := day + ";" + filepath
+	txt := day + " " + filepath + ";" //2018-06-20 C:\windows-version.txt;
 	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	defer file.Close()
 

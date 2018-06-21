@@ -8,11 +8,9 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
-func Alarm() {
-
+func getFile() string {
 	// 1. 파일 가져오기
 	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
-	var count = 0
 
 	if err != nil {
 		walk.MsgBox(
@@ -21,12 +19,23 @@ func Alarm() {
 			err.Error(),
 			walk.MsgBoxOK|walk.MsgBoxIconError)
 	}
+
+	return string(file)
+}
+
+func Alarm() {
+	var day, name string
+	txt := getFile()
 	// 2. 글이름, 마감일 읽기
-	txt := string(file)
-	filearray := strings.Split(txt, ";")
+	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
+
+	for i := range filearray {
+		oneFile := strings.Split(filearray[i], " ")
+		day, name = oneFile[0], oneFile[1]
+	}
 	// 3. 글이름, 마감일, 글자수 세기
 	// * 글자수는 10분마다 새로 세야함
-	day, name := filearray[0], filearray[1]
+	count := CountAll(day)
 
 	var mainWindow *walk.MainWindow
 
@@ -36,6 +45,7 @@ func Alarm() {
 		MinSize:  Size{100, 400},
 		Layout:   VBox{},
 		Children: []Widget{
+
 			Label{
 				Text: "글이름",
 			},
