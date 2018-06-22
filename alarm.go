@@ -1,41 +1,32 @@
 package main
 
 import (
-	"io/ioutil"
-	"strings"
-
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
 
-func getFile() string {
-	// 1. 파일 가져오기
-	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
+func Alarm(day, name, count string) {
+	// ticker := time.NewTicker(10 * time.Minute)
+	// quit := make(chan struct{})
+	// go func() {
+	// 	for {
+	// 		select {
+	// 		case <-ticker.C:
+	// 			// do stuff
+	// 			txtfile, _ := ioutil.ReadFile(name)
+	// 			count = CountChar(string(txtfile))
+	// 		case <-quit:
+	// 			ticker.Stop()
+	// 			return
+	// 		}
+	// 	}
+	// }()
 
-	if err != nil {
-		walk.MsgBox(
-			nil,
-			"Error",
-			err.Error(),
-			walk.MsgBoxOK|walk.MsgBoxIconError)
-	}
-
-	return string(file)
-}
-
-func Alarm() {
-	var day, name string
-	txt := getFile()
-	// 2. 글이름, 마감일 읽기
-	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
-
-	for i := range filearray {
-		oneFile := strings.Split(filearray[i], " ")
-		day, name = oneFile[0], oneFile[1]
-	}
-	// 3. 글이름, 마감일, 글자수 세기
-	// * 글자수는 10분마다 새로 세야함
-	count := CountAll(day)
+	walk.MsgBox(
+		nil,
+		"Test",
+		"Alarm",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
 
 	var mainWindow *walk.MainWindow
 
@@ -66,21 +57,5 @@ func Alarm() {
 			},
 		},
 	}.Run()
-
-	// ticker := time.NewTicker(10 * time.Minute)
-	// quit := make(chan struct{})
-	// go func() {
-	// 	for {
-	// 		select {
-	// 		case <-ticker.C:
-	// 			// do stuff
-	// 			txtfile, _ := ioutil.ReadFile(name)
-	// 			count = CountChar(string(txtfile))
-	// 		case <-quit:
-	// 			ticker.Stop()
-	// 			return
-	// 		}
-	// 	}
-	// }()
 
 }

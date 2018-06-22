@@ -1,9 +1,11 @@
 package main
 
 import (
+	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -223,6 +225,12 @@ func Fileupload() {
 	var tableView *walk.TableView
 	var webView *walk.WebView
 
+	walk.MsgBox(
+		nil,
+		"Test",
+		"Fileupload",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
 	treeModel, err := NewDirectoryTreeModel()
 	if err != nil {
 		log.Fatal(err)
@@ -330,7 +338,9 @@ func Fileupload() {
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
 							// 4. 알리미로 넘어가기
-							Alarm()
+
+							day, name, count := GetAlarmText()
+							Alarm(day, name, count)
 							mainWindow.Close()
 
 						}
@@ -381,4 +391,36 @@ func saveFile(day, filepath string) error {
 	file.Sync()
 
 	return err
+}
+
+func GetAlarmText() (string, string, string) {
+
+	var day, name string
+	txt := getFile()
+	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
+
+	for i := range filearray {
+		oneFile := strings.Split(filearray[i], " ")
+		day, name = oneFile[0], oneFile[1]
+	}
+	// 3. 글이름, 마감일, 글자수 세기
+	// * 글자수는 10분마다 새로 세야함
+	count := CountAll(day)
+	return day, name, strconv.Itoa(count)
+
+}
+
+func getFile() string {
+	// 1. 파일 가져오기
+	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
+
+	if err != nil {
+		walk.MsgBox(
+			nil,
+			"Error",
+			err.Error(),
+			walk.MsgBoxOK|walk.MsgBoxIconError)
+	}
+
+	return string(file)
 }

@@ -26,8 +26,9 @@ func main() {
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
-					mainWindow.Close()
-					Alarm()
+					//mainWindow.Close()
+					day, name, count := GetAlarmText()
+					Alarm(day, name, count)
 				},
 			},
 		},
