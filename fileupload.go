@@ -395,30 +395,62 @@ func saveFile(day, filepath string) error {
 
 func GetAlarmText() (string, string, string) {
 
-	var day, name string
+	walk.MsgBox(
+		nil,
+		"GetAlarmText",
+		"GetAlarmText",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
+	var newFile TxtFile
 	txt := getFile()
 	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
-
-	for i := range filearray {
-		oneFile := strings.Split(filearray[i], " ")
-		day, name = oneFile[0], oneFile[1]
-	}
-	// 3. 글이름, 마감일, 글자수 세기
-	// * 글자수는 10분마다 새로 세야함
-	count := CountAll(day)
 
 	walk.MsgBox(
 		nil,
 		"GetAlarmText",
-		day+name,
+		txt,
 		walk.MsgBoxOK|walk.MsgBoxIconError)
 
+	for i := range filearray {
+		oneFile := strings.Split(filearray[i], " ")
+		if len(oneFile) > 0 {
+
+			newFile.name = oneFile[0]
+			newFile.dday = oneFile[1]
+		}
+	}
+	// 여기부터 안되고있음
+	walk.MsgBox(
+		nil,
+		"GetAlarmText",
+		newFile.name,
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
+	// 3. 글이름, 마감일, 글자수 세기
+	// * 글자수는 10분마다 새로 세야함
+	//count := CountAll(newFile.day)
+
+	// walk.MsgBox(
+	// 	nil,
+	// 	"GetAlarmText",
+	// 	day+name,
+	// 	walk.MsgBoxOK|walk.MsgBoxIconError)
+
+	day, name := "", ""
+	count := 1
 	return day, name, strconv.Itoa(count)
 
 }
 
 func getFile() string {
 	// 1. 파일 가져오기
+
+	walk.MsgBox(
+		nil,
+		"getFile",
+		"getFile",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
 	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
 
 	if err != nil {

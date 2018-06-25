@@ -3,9 +3,18 @@ package main
 import (
 	"unicode"
 	"unicode/utf8"
+
+	"github.com/lxn/walk"
 )
 
 func CountAll(s string) int {
+
+	walk.MsgBox(
+		nil,
+		"CountAll",
+		"CountAll",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
 	return len([]rune(s))
 }
 
