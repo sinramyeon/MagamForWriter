@@ -406,6 +406,13 @@ func GetAlarmText() (string, string, string) {
 	// 3. 글이름, 마감일, 글자수 세기
 	// * 글자수는 10분마다 새로 세야함
 	count := CountAll(day)
+
+	walk.MsgBox(
+		nil,
+		"GetAlarmText",
+		day+name,
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
 	return day, name, strconv.Itoa(count)
 
 }
