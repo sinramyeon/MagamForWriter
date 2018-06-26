@@ -340,8 +340,8 @@ func Fileupload() {
 							// 4. 알리미로 넘어가기
 
 							day, name, count := GetAlarmText()
-							Alarm(day, name, count)
 							mainWindow.Close()
+							Alarm(day, name, count)
 
 						}
 
@@ -395,21 +395,9 @@ func saveFile(day, filepath string) error {
 
 func GetAlarmText() (string, string, string) {
 
-	walk.MsgBox(
-		nil,
-		"GetAlarmText",
-		"GetAlarmText",
-		walk.MsgBoxOK|walk.MsgBoxIconError)
-
 	var newFile TxtFile
 	txt := getFile()
 	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
-
-	walk.MsgBox(
-		nil,
-		"GetAlarmText",
-		txt,
-		walk.MsgBoxOK|walk.MsgBoxIconError)
 
 	for i := range filearray {
 		oneFile := strings.Split(filearray[i], " ")
@@ -418,45 +406,17 @@ func GetAlarmText() (string, string, string) {
 			newFile.dday = oneFile[0]
 			newFile.name = oneFile[1]
 
-			walk.MsgBox(
-				nil,
-				"GetAlarmText",
-				newFile.dday+newFile.name+strconv.Itoa(i),
-				walk.MsgBoxOK|walk.MsgBoxIconError)
-
 			str := txtFileOpen(newFile.name)
 			count := CountAll(str)
 			return newFile.dday, newFile.name, strconv.Itoa(count)
 
 		}
 	}
-	// 여기부터 안되고있음
-	walk.MsgBox(
-		nil,
-		"GetAlarmText",
-		newFile.name,
-		walk.MsgBoxOK|walk.MsgBoxIconError)
-
-	// 3. 글이름, 마감일, 글자수 세기
-	// * 글자수는 10분마다 새로 세야함
-	//count := CountAll(newFile.day)
-
-	// walk.MsgBox(
-	// 	nil,
-	// 	"GetAlarmText",
-	// 	day+name,
-	// 	walk.MsgBoxOK|walk.MsgBoxIconError)
 	return "", "", ""
 }
 
 func getFile() string {
 	// 1. 파일 가져오기
-
-	walk.MsgBox(
-		nil,
-		"getFile",
-		"getFile",
-		walk.MsgBoxOK|walk.MsgBoxIconError)
 
 	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
 

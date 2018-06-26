@@ -22,12 +22,6 @@ func Alarm(day, name, count string) {
 	// 	}
 	// }()
 
-	walk.MsgBox(
-		nil,
-		"Test",
-		"Alarm",
-		walk.MsgBoxOK|walk.MsgBoxIconError)
-
 	var mainWindow *walk.MainWindow
 
 	MainWindow{
