@@ -415,8 +415,19 @@ func GetAlarmText() (string, string, string) {
 		oneFile := strings.Split(filearray[i], " ")
 		if len(oneFile) > 0 {
 
-			newFile.name = oneFile[0]
-			newFile.dday = oneFile[1]
+			newFile.dday = oneFile[0]
+			newFile.name = oneFile[1]
+
+			walk.MsgBox(
+				nil,
+				"GetAlarmText",
+				newFile.dday+newFile.name+strconv.Itoa(i),
+				walk.MsgBoxOK|walk.MsgBoxIconError)
+
+			str := txtFileOpen(newFile.name)
+			count := CountAll(str)
+			return newFile.dday, newFile.name, strconv.Itoa(count)
+
 		}
 	}
 	// 여기부터 안되고있음
@@ -435,11 +446,7 @@ func GetAlarmText() (string, string, string) {
 	// 	"GetAlarmText",
 	// 	day+name,
 	// 	walk.MsgBoxOK|walk.MsgBoxIconError)
-
-	day, name := "", ""
-	count := 1
-	return day, name, strconv.Itoa(count)
-
+	return "", "", ""
 }
 
 func getFile() string {
