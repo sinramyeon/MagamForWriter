@@ -12,7 +12,7 @@ func main() {
 	MainWindow{
 		AssignTo: &mainWindow,
 		Title:    "마감 안내기",
-		MinSize:  Size{100, 400},
+		MinSize:  Size{120, 50},
 		Layout:   VBox{},
 		Children: []Widget{
 

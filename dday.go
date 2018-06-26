@@ -12,13 +12,13 @@ func (txtFile *TxtFile) DdaySet() {
 	MainWindow{
 		AssignTo: &mainWindow,
 		Title:    "마감일을 입력하세요",
-		MinSize:  Size{600, 600},
+		MinSize:  Size{800, 20},
 		Layout:   VBox{},
 		Children: []Widget{
 			HSplitter{
 				Children: []Widget{
 					Label{
-						Text: "마감일을 2018-06-06 형태로 입력해 주세요/",
+						Text: "마감일을 2018-06-06 형태로 입력해 주세요",
 					},
 					TextEdit{AssignTo: &Day},
 
