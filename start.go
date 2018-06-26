@@ -27,8 +27,9 @@ func main() {
 				Text: "마감일 안내받기",
 				OnClicked: func() {
 					mainWindow.Close()
-					day, name, count := GetAlarmText()
-					Alarm(day, name, count)
+
+					day, name, count, countWithoutBlank := GetAlarmText()
+					Alarm(day, name, count, countWithoutBlank)
 				},
 			},
 		},

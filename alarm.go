@@ -6,21 +6,6 @@ import (
 )
 
 func Alarm(day, name, count, countWithoutBlank string) {
-	// ticker := time.NewTicker(10 * time.Minute)
-	// quit := make(chan struct{})
-	// go func() {
-	// 	for {
-	// 		select {
-	// 		case <-ticker.C:
-	// 			// do stuff
-	// 			txtfile, _ := ioutil.ReadFile(name)
-	// 			count = CountChar(string(txtfile))
-	// 		case <-quit:
-	// 			ticker.Stop()
-	// 			return
-	// 		}
-	// 	}
-	// }()
 
 	var mainWindow *walk.MainWindow
 
@@ -49,7 +34,6 @@ func Alarm(day, name, count, countWithoutBlank string) {
 			Label{
 				Text: count,
 			},
-
 			Label{
 				Text: "공백 제거 글자수",
 			},

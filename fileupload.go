@@ -27,11 +27,30 @@ type TxtFile struct {
 	dday  string
 }
 
+type DirectoryTreeModel struct {
+	walk.TreeModelBase
+	roots []*Directory
+}
+
+type FileInfo struct {
+	Name     string
+	Size     int64
+	Modified time.Time
+}
+
+type FileInfoModel struct {
+	walk.SortedReflectTableModelBase
+	dirPath string
+	items   []*FileInfo
+}
+
+var _ walk.ReflectTableModel = new(FileInfoModel)
+var _ walk.TreeModel = new(DirectoryTreeModel)
+var _ walk.TreeItem = new(Directory)
+
 func NewDirectory(name string, parent *Directory) *Directory {
 	return &Directory{name: name, parent: parent}
 }
-
-var _ walk.TreeItem = new(Directory)
 
 func (d *Directory) Text() string {
 	return d.name
@@ -104,13 +123,6 @@ func (d *Directory) Path() string {
 	return filepath.Join(elems...)
 }
 
-type DirectoryTreeModel struct {
-	walk.TreeModelBase
-	roots []*Directory
-}
-
-var _ walk.TreeModel = new(DirectoryTreeModel)
-
 func NewDirectoryTreeModel() (*DirectoryTreeModel, error) {
 	model := new(DirectoryTreeModel)
 
@@ -143,20 +155,6 @@ func (m *DirectoryTreeModel) RootCount() int {
 func (m *DirectoryTreeModel) RootAt(index int) walk.TreeItem {
 	return m.roots[index]
 }
-
-type FileInfo struct {
-	Name     string
-	Size     int64
-	Modified time.Time
-}
-
-type FileInfoModel struct {
-	walk.SortedReflectTableModelBase
-	dirPath string
-	items   []*FileInfo
-}
-
-var _ walk.ReflectTableModel = new(FileInfoModel)
 
 func NewFileInfoModel() *FileInfoModel {
 	return new(FileInfoModel)
@@ -225,12 +223,6 @@ func Fileupload() {
 	var tableView *walk.TableView
 	var webView *walk.WebView
 
-	walk.MsgBox(
-		nil,
-		"Test",
-		"Fileupload",
-		walk.MsgBoxOK|walk.MsgBoxIconError)
-
 	treeModel, err := NewDirectoryTreeModel()
 	if err != nil {
 		log.Fatal(err)
@@ -256,7 +248,7 @@ func Fileupload() {
 							if err := tableModel.SetDirPath(dir.Path()); err != nil {
 								walk.MsgBox(
 									mainWindow,
-									"Error",
+									"파일 경로 오류",
 									err.Error(),
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
@@ -333,7 +325,7 @@ func Fileupload() {
 							if err != nil {
 								walk.MsgBox(
 									nil,
-									"Error",
+									"파일 저장 오류",
 									err.Error(),
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
