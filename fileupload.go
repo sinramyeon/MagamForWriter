@@ -337,11 +337,11 @@ func Fileupload() {
 									err.Error(),
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
-							// 4. 알리미로 넘어가기
 
-							day, name, count := GetAlarmText()
+							// 4. 알리미로 넘어가기
+							day, name, count, countWithoutBlank := GetAlarmText()
 							mainWindow.Close()
-							Alarm(day, name, count)
+							Alarm(day, name, count, countWithoutBlank)
 
 						}
 
@@ -393,7 +393,7 @@ func saveFile(day, filepath string) error {
 	return err
 }
 
-func GetAlarmText() (string, string, string) {
+func GetAlarmText() (string, string, string, string) {
 
 	var newFile TxtFile
 	txt := getFile()
@@ -408,11 +408,12 @@ func GetAlarmText() (string, string, string) {
 
 			str := txtFileOpen(newFile.name)
 			count := CountAll(str)
-			return newFile.dday, newFile.name, strconv.Itoa(count)
+			countWithoutBlank := CountRemoveBlank(str)
+			return newFile.dday, newFile.name, strconv.Itoa(count), strconv.Itoa(countWithoutBlank)
 
 		}
 	}
-	return "", "", ""
+	return "", "", "", ""
 }
 
 func getFile() string {

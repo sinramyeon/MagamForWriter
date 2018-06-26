@@ -5,7 +5,7 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
-func Alarm(day, name, count string) {
+func Alarm(day, name, count, countWithoutBlank string) {
 	// ticker := time.NewTicker(10 * time.Minute)
 	// quit := make(chan struct{})
 	// go func() {
@@ -48,6 +48,13 @@ func Alarm(day, name, count string) {
 			},
 			Label{
 				Text: count,
+			},
+
+			Label{
+				Text: "공백 제거 글자수",
+			},
+			Label{
+				Text: countWithoutBlank,
 			},
 		},
 	}.Run()
