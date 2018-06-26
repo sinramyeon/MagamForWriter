@@ -20,7 +20,7 @@ func Alarm(day, name, count, countWithoutBlank string) {
 				Text: "글이름",
 			},
 			Label{
-				Text: name,
+				Text: GetFilename(name),
 			},
 			Label{
 				Text: "마감일",
