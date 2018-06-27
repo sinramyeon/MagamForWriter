@@ -84,14 +84,15 @@ func GetFile() string {
 	// 1. 파일 가져오기
 
 	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
-
-	if err != nil {
-		walk.MsgBox(
-			nil,
-			"Error",
-			err.Error(),
-			walk.MsgBoxOK|walk.MsgBoxIconError)
-	}
+	WalkError(err)
 
 	return string(file)
+}
+
+func WalkError(err error) {
+	walk.MsgBox(
+		nil,
+		"Error",
+		err.Error(),
+		walk.MsgBoxOK|walk.MsgBoxIconError)
 }
