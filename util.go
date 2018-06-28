@@ -73,6 +73,7 @@ func GetAlarmText() (string, string, string, string) {
 			str := TxtFileOpen(newFile.name)
 			count := CountAll(str)
 			countWithoutBlank := CountRemoveBlank(str)
+
 			return newFile.dday, newFile.name, strconv.Itoa(count), strconv.Itoa(countWithoutBlank)
 
 		}
@@ -82,10 +83,10 @@ func GetAlarmText() (string, string, string, string) {
 
 func GetFile() string {
 	// 1. 파일 가져오기
-
 	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
-	WalkError(err)
-
+	if err != nil {
+		WalkError(err)
+	}
 	return string(file)
 }
 
