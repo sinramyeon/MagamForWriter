@@ -1,8 +1,6 @@
 package main
 
 import (
-	"log"
-
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
@@ -13,11 +11,11 @@ type MyMainWindow struct {
 
 func main() {
 
-	mw := new(MyMainWindow)
-
 	var openAction, showAboutBoxAction *walk.Action
 	var recentMenu *walk.Menu
 	var toggleSpecialModePB *walk.PushButton
+
+	mw := new(MyMainWindow)
 
 	if err := (MainWindow{
 		AssignTo: &mw.MainWindow,
@@ -29,7 +27,6 @@ func main() {
 					Action{
 						AssignTo:    &openAction,
 						Text:        "&Open",
-						Image:       "../img/open.png",
 						Enabled:     Bind("enabledCB.Checked"),
 						Visible:     Bind("!openHiddenCB.Checked"),
 						Shortcut:    Shortcut{walk.ModControl, walk.KeyO},
@@ -62,8 +59,7 @@ func main() {
 			Items: []MenuItem{
 				ActionRef{&openAction},
 				Menu{
-					Text:  "New A",
-					Image: "../img/document-new.png",
+					Text: "New A",
 					Items: []MenuItem{
 						Action{
 							Text:        "A",
@@ -82,8 +78,7 @@ func main() {
 				},
 				Separator{},
 				Menu{
-					Text:  "View",
-					Image: "../img/document-properties.png",
+					Text: "View",
 					Items: []MenuItem{
 						Action{
 							Text:        "X",
@@ -102,7 +97,6 @@ func main() {
 				Separator{},
 				Action{
 					Text:        "Special",
-					Image:       "../img/system-shutdown.png",
 					Enabled:     Bind("isSpecialMode && enabledCB.Checked"),
 					OnTriggered: mw.specialAction_Triggered,
 				},
@@ -126,31 +120,24 @@ func main() {
 			},
 			PushButton{
 				AssignTo: &toggleSpecialModePB,
-				Text:     "알림 보기",
+				Text:     "Enable Special Mode",
 				OnClicked: func() {
-
-					day, name, count, countWithoutBlank := GetAlarmText()
-					Alarm(day, name, count, countWithoutBlank)
-
+					walk.MsgBox(
+						nil,
+						"PushButton",
+						"PushButton",
+						walk.MsgBoxOK|walk.MsgBoxIconError)
 				},
 			},
 		},
 	}.Create()); err != nil {
-		log.Fatal(err)
+
+		walk.MsgBox(
+			nil,
+			"Error",
+			err.Error(),
+			walk.MsgBoxOK|walk.MsgBoxIconError)
 	}
-
-	addRecentFileActions := func(texts ...string) {
-		for _, text := range texts {
-			a := walk.NewAction()
-			a.SetText(text)
-			a.Triggered().Attach(mw.openAction_Triggered)
-			recentMenu.Actions().Add(a)
-		}
-	}
-
-	addRecentFileActions("Foo", "Bar", "Baz")
-
-	mw.Run()
 
 	// var mainWindow *walk.MainWindow
 
