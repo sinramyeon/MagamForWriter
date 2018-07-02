@@ -196,13 +196,13 @@ func main() {
 
 	mw := new(MyMainWindow)
 
-	var openAction, showAboutBoxAction *walk.Action
+	var openAction, showAboutBoxAction, fileUploadAction *walk.Action
 	var recentMenu *walk.Menu
 	var toggleSpecialModePB *walk.PushButton
 
 	if err := (MainWindow{
 		AssignTo: &mw.MainWindow,
-		Title:    "Walk Actions Example",
+		Title:    "마감 안내기",
 		MenuItems: []MenuItem{
 			Menu{
 				Text: "&File",
@@ -237,27 +237,15 @@ func main() {
 				},
 			},
 		},
+
 		ToolBar: ToolBar{
 			ButtonStyle: ToolBarButtonImageBeforeText,
 			Items: []MenuItem{
 				ActionRef{&openAction},
-				Menu{
-					Text: "New A",
-					Items: []MenuItem{
-						Action{
-							Text:        "A",
-							OnTriggered: mw.newAction_Triggered,
-						},
-						Action{
-							Text:        "B",
-							OnTriggered: mw.newAction_Triggered,
-						},
-						Action{
-							Text:        "C",
-							OnTriggered: mw.newAction_Triggered,
-						},
-					},
-					OnTriggered: mw.newAction_Triggered,
+				Action{
+					AssignTo:    &fileUploadAction,
+					Text:        "파일 추가",
+					OnTriggered: mw.fileUploadAction_Triggered,
 				},
 				Separator{},
 				Menu{
@@ -346,7 +334,11 @@ func (mw *MyMainWindow) changeViewAction_Triggered() {
 }
 
 func (mw *MyMainWindow) showAboutBoxAction_Triggered() {
-	walk.MsgBox(mw, "About", "Walk Actions Example", walk.MsgBoxIconInformation)
+	walk.MsgBox(mw, "About", "글 쓰시는 분들의 마감을 도와드립니다. 20180702 히어로 제작", walk.MsgBoxIconInformation)
+}
+
+func (mw *MyMainWindow) fileUploadAction_Triggered() {
+	Fileupload()
 }
 
 func (mw *MyMainWindow) specialAction_Triggered() {
