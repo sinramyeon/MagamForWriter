@@ -340,7 +340,11 @@ func Fileupload() {
 			},
 		},
 	}.Create()); err != nil {
-		log.Fatal(err)
+		walk.MsgBox(
+			nil,
+			"오류",
+			err.Error(),
+			walk.MsgBoxOK|walk.MsgBoxIconError)
 	}
 
 	splitter.SetFixed(treeView, true)
