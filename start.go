@@ -50,8 +50,8 @@ func main() {
 					Text: "설정",
 					Items: []MenuItem{
 						Action{
-							Text: "X",
-							//OnTriggered: mw.changeViewAction_Triggered,
+							Text:        "디자인 바꾸기",
+							OnTriggered: mw.colourAction_Triggered,
 						},
 					},
 				},
@@ -89,4 +89,8 @@ func (mw *MyMainWindow) showAboutBoxAction_Triggered() {
 
 func (mw *MyMainWindow) fileUploadAction_Triggered() {
 	Fileupload()
+}
+
+func (mw *MyMainWindow) colourAction_Triggered() {
+	ColourSetting()
 }
