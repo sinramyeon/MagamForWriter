@@ -65,12 +65,25 @@ func main() {
 		MinSize: Size{270, 150},
 		Layout:  VBox{},
 		Children: []Widget{
+
+			GradientComposite{
+				Border:   true,
+				Vertical: Bind("verticalCB.Checked"),
+				Color1:   Bind("rgb(c1RedSld.Value, c1GreenSld.Value, c1BlueSld.Value)"),
+				Color2:   Bind("rgb(c2RedSld.Value, c2GreenSld.Value, c2BlueSld.Value)"),
+				Layout:   HBox{},
+			},
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
 					day, name, count, countWithoutBlank := GetAlarmText()
 					Alarm(day, name, count, countWithoutBlank)
 				},
+			},
+		},
+		Functions: map[string]func(args ...interface{}) (interface{}, error){
+			"rgb": func(args ...interface{}) (interface{}, error) {
+				return walk.RGB(byte(args[0].(float64)), byte(args[1].(float64)), byte(args[2].(float64))), nil
 			},
 		},
 	}.Create()); err != nil {
