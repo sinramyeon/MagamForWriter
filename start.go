@@ -22,7 +22,7 @@ func main() {
 
 	var openAction, showAboutBoxAction, fileUploadAction *walk.Action
 	var recentMenu *walk.Menu
-	var toggleSpecialModePB *walk.PushButton
+	//var toggleSpecialModePB *walk.PushButton
 
 	if err := (MainWindow{
 		AssignTo: &mw.MainWindow,
@@ -76,16 +76,16 @@ func main() {
 					Text: "설정",
 					Items: []MenuItem{
 						Action{
-							Text:        "X",
-							OnTriggered: mw.changeViewAction_Triggered,
+							Text: "X",
+							//OnTriggered: mw.changeViewAction_Triggered,
 						},
 						Action{
-							Text:        "Y",
-							OnTriggered: mw.changeViewAction_Triggered,
+							Text: "Y",
+							//OnTriggered: mw.changeViewAction_Triggered,
 						},
 						Action{
-							Text:        "Z",
-							OnTriggered: mw.changeViewAction_Triggered,
+							Text: "Z",
+							//OnTriggered: mw.changeViewAction_Triggered,
 						},
 					},
 				},
@@ -103,18 +103,11 @@ func main() {
 		MinSize: Size{300, 200},
 		Layout:  VBox{},
 		Children: []Widget{
-
 			PushButton{
-				AssignTo: &toggleSpecialModePB,
-				Text:     "Enable Special Mode",
+				Text: "마감일 안내받기",
 				OnClicked: func() {
-					isSpecialMode.SetSatisfied(!isSpecialMode.Satisfied())
-
-					if isSpecialMode.Satisfied() {
-						toggleSpecialModePB.SetText("Disable Special Mode")
-					} else {
-						toggleSpecialModePB.SetText("Enable Special Mode")
-					}
+					day, name, count, countWithoutBlank := GetAlarmText()
+					Alarm(day, name, count, countWithoutBlank)
 				},
 			},
 		},
