@@ -65,7 +65,6 @@ func main() {
 		ToolBar: ToolBar{
 			ButtonStyle: ToolBarButtonImageBeforeText,
 			Items: []MenuItem{
-				ActionRef{&openAction},
 				Action{
 					AssignTo:    &fileUploadAction,
 					Text:        "파일 추가",
@@ -79,27 +78,15 @@ func main() {
 							Text: "X",
 							//OnTriggered: mw.changeViewAction_Triggered,
 						},
-						Action{
-							Text: "Y",
-							//OnTriggered: mw.changeViewAction_Triggered,
-						},
-						Action{
-							Text: "Z",
-							//OnTriggered: mw.changeViewAction_Triggered,
-						},
 					},
-				},
-				Separator{},
-				Action{
-					Text:        "Special",
-					Enabled:     Bind("isSpecialMode && enabledCB.Checked"),
-					OnTriggered: mw.specialAction_Triggered,
 				},
 			},
 		},
+
 		ContextMenuItems: []MenuItem{
 			ActionRef{&showAboutBoxAction},
 		},
+
 		MinSize: Size{300, 200},
 		Layout:  VBox{},
 		Children: []Widget{
