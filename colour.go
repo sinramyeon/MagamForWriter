@@ -9,22 +9,7 @@ func ColourSetting() {
 	MainWindow{
 		Title:   "디자인 설정",
 		MinSize: Size{400, 0},
-		Background: GradientBrush{
-			Vertexes: []walk.GradientVertex{
-				{X: 0, Y: 0, Color: walk.RGB(255, 255, 127)},
-				{X: 1, Y: 0, Color: walk.RGB(127, 191, 255)},
-				{X: 0.5, Y: 0.5, Color: walk.RGB(255, 255, 255)},
-				{X: 1, Y: 1, Color: walk.RGB(127, 255, 127)},
-				{X: 0, Y: 1, Color: walk.RGB(255, 127, 127)},
-			},
-			Triangles: []walk.GradientTriangle{
-				{0, 1, 2},
-				{1, 3, 2},
-				{3, 4, 2},
-				{4, 0, 2},
-			},
-		},
-		Layout: HBox{Margins: Margins{100, 100, 100, 100}},
+		Layout:  HBox{},
 		Children: []Widget{
 			GradientComposite{
 				Border:   true,
@@ -62,17 +47,8 @@ func ColourSetting() {
 									Slider{Name: "c2BlueSld", Tracking: true, MaxValue: 255, Value: 0},
 								},
 							},
-
 							PushButton{
-								Text: "색 정하기",
-								OnClicked: func() {
-									walk.MsgBox(
-										nil,
-										"색",
-										GradientComposite,
-										walk.MsgBoxIconInformation)
-
-								},
+								Text: "색 지정하기",
 							},
 						},
 					},
