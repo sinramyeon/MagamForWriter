@@ -108,18 +108,15 @@ func GetTextNameFromConf() []string {
 	for i := range filearray {
 		oneFile := strings.Split(filearray[i], " ")
 		if len(oneFile) > 0 {
-
 			newFile.name = oneFile[1]
-
-			str := TxtFileOpen(newFile.name)
-			Filename = append(Filename, str)
+			Filename = append(Filename, newFile.name)
 		}
 	}
-
+	// 여기서부터 접근이 안되고있음
 	walk.MsgBox(
 		nil,
 		"GetTextNameFromConf",
-		strings.Join(Filename[:], ","),
+		strings.Join(Filename, ","),
 		walk.MsgBoxIconInformation)
 
 	return Filename
