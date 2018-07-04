@@ -98,12 +98,6 @@ func main() {
 
 	txtFilesName := GetTextNameFromConf()
 
-	walk.MsgBox(
-		nil,
-		"beforeaddRecentFileActions",
-		"beforeaddRecentFileActions",
-		walk.MsgBoxIconInformation)
-
 	addRecentFileActions := func(texts []string) {
 
 		walk.MsgBox(

@@ -100,7 +100,6 @@ func WalkError(err error) {
 
 func GetTextNameFromConf() []string {
 
-	var newFile TxtFile
 	var Filename []string
 	txt := GetFile()
 	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
@@ -108,10 +107,11 @@ func GetTextNameFromConf() []string {
 	for i := range filearray {
 		oneFile := strings.Split(filearray[i], " ")
 		if len(oneFile) > 0 {
-			newFile.name = oneFile[1]
-			Filename = append(Filename, newFile.name)
+			name := oneFile[1]
+			Filename = append(Filename, name)
 		}
 	}
+
 	// 여기서부터 접근이 안되고있음
 	walk.MsgBox(
 		nil,
