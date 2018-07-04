@@ -97,3 +97,22 @@ func WalkError(err error) {
 		err.Error(),
 		walk.MsgBoxOK|walk.MsgBoxIconError)
 }
+
+func GetTextNameFromConf() []string {
+
+	var newFile TxtFile
+	var Filename []string
+	txt := GetFile()
+	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
+
+	for i := range filearray {
+		oneFile := strings.Split(filearray[i], " ")
+		if len(oneFile) > 0 {
+
+			newFile.name = oneFile[1]
+			str := TxtFileOpen(newFile.name)
+			Filename = append(Filename, str)
+		}
+	}
+	return Filename
+}
