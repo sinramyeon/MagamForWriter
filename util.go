@@ -110,9 +110,17 @@ func GetTextNameFromConf() []string {
 		if len(oneFile) > 0 {
 
 			newFile.name = oneFile[1]
+
 			str := TxtFileOpen(newFile.name)
 			Filename = append(Filename, str)
 		}
 	}
+
+	walk.MsgBox(
+		nil,
+		"GetTextNameFromConf",
+		strings.Join(Filename[:], ","),
+		walk.MsgBoxIconInformation)
+
 	return Filename
 }

@@ -22,24 +22,26 @@ func main() {
 		AssignTo: &mw.MainWindow,
 		Title:    "마감 안내기",
 		MenuItems: []MenuItem{
-
-			Action{
-				AssignTo:    &openAction,
-				Text:        "&File",
-				Enabled:     Bind("enabledCB.Checked"),
-				Visible:     Bind("!openHiddenCB.Checked"),
-				Shortcut:    Shortcut{walk.ModControl, walk.KeyO},
-				OnTriggered: mw.fileUploadAction_Triggered,
-			},
-			Separator{},
 			Menu{
-				AssignTo: &recentMenu,
-				Text:     "Recent",
-			},
-			Separator{},
-			Action{
-				Text:        "E&xit",
-				OnTriggered: func() { mw.Close() },
+				Text: "파일 업로드",
+				Items: []MenuItem{
+					Action{
+						AssignTo:    &openAction,
+						Text:        "&File",
+						Enabled:     Bind("enabledCB.Checked"),
+						Visible:     Bind("!openHiddenCB.Checked"),
+						OnTriggered: mw.fileUploadAction_Triggered,
+					},
+					Menu{
+						AssignTo: &recentMenu,
+						Text:     "최근 파일",
+					},
+					Separator{},
+					Action{
+						Text:        "종료",
+						OnTriggered: func() { mw.Close() },
+					},
+				},
 			},
 
 			Menu{
@@ -94,7 +96,22 @@ func main() {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
+	txtFilesName := GetTextNameFromConf()
+
+	walk.MsgBox(
+		nil,
+		"beforeaddRecentFileActions",
+		"beforeaddRecentFileActions",
+		walk.MsgBoxIconInformation)
+
 	addRecentFileActions := func(texts []string) {
+
+		walk.MsgBox(
+			nil,
+			"addRecentFileActions",
+			"addRecentFileActions",
+			walk.MsgBoxIconInformation)
+
 		for _, text := range texts {
 			a := walk.NewAction()
 			a.SetText(text)
@@ -103,7 +120,6 @@ func main() {
 		}
 	}
 
-	txtFilesName := GetTextNameFromConf()
 	addRecentFileActions(txtFilesName)
 
 	mw.Run()
