@@ -96,25 +96,25 @@ func main() {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
-	txtFilesName := GetTextNameFromConf()
+	// txtFilesName := GetTextNameFromConf()
 
-	addRecentFileActions := func(texts []string) {
+	// addRecentFileActions := func(texts []string) {
 
-		walk.MsgBox(
-			nil,
-			"addRecentFileActions",
-			"addRecentFileActions",
-			walk.MsgBoxIconInformation)
+	// 	walk.MsgBox(
+	// 		nil,
+	// 		"addRecentFileActions",
+	// 		"addRecentFileActions",
+	// 		walk.MsgBoxIconInformation)
 
-		for _, text := range texts {
-			a := walk.NewAction()
-			a.SetText(text)
-			//a.Triggered().Attach(mw.openAction_Triggered)
-			recentMenu.Actions().Add(a)
-		}
-	}
+	// 	for _, text := range texts {
+	// 		a := walk.NewAction()
+	// 		a.SetText(text)
+	// 		//a.Triggered().Attach(mw.openAction_Triggered)
+	// 		recentMenu.Actions().Add(a)
+	// 	}
+	// }
 
-	addRecentFileActions(txtFilesName)
+	// addRecentFileActions(txtFilesName)
 
 	mw.Run()
 }

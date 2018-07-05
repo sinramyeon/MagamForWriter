@@ -1,6 +1,8 @@
 package main
 
 import (
+	"regexp"
+
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
@@ -26,6 +28,17 @@ func (txtFile *TxtFile) DdaySet() {
 						Text: "마감일 등록",
 						OnClicked: func() {
 							txtFile.dday = Day.Text()
+							re := regexp.MustCompile(`\d{4}-\d{2}-\d{2}`)
+
+							if !re.MatchString(txtFile.dday) {
+								walk.MsgBox(
+									nil,
+									"날짜 에러",
+									"날짜 형식을 2018-07-05 에 맞춰 입력하세요.",
+									walk.MsgBoxOK|walk.MsgBoxIconError)
+								return
+							}
+
 							mainWindow.Close()
 						},
 					},

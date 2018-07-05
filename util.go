@@ -112,7 +112,7 @@ func GetTextNameFromConf() []string {
 		}
 	}
 
-	// 여기서부터 접근이 안되고있음
+	// 여기서부터 접근이 안되고있음 ???????why
 	walk.MsgBox(
 		nil,
 		"GetTextNameFromConf",
