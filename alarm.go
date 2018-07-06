@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"strconv"
 
 	"github.com/lxn/walk"
 )
@@ -50,7 +51,10 @@ func Alarm(day, name, count, countWithoutBlank string) {
 
 		if err := ni.ShowCustom(
 			GetFilename(name),
-			day+"일 까지 완성할 글이 "+count+"자 기록되었습니다."); err != nil {
+			"D-DAY : "+
+				strconv.Itoa(GetDDay(day))+`
+			`+
+				day+"일 까지 완성할 글이 "+count+"자 기록되었습니다."); err != nil {
 
 			log.Fatal(err)
 		}
@@ -69,7 +73,10 @@ func Alarm(day, name, count, countWithoutBlank string) {
 		log.Fatal(err)
 	}
 
-	if err := ni.ShowInfo("마감 알리미", day+"일 까지 완성할 글이 "+count+"자 기록되었습니다."); err != nil {
+	if err := ni.ShowInfo("마감 알리미", "D-DAY : "+
+		strconv.Itoa(GetDDay(day))+`
+	`+
+		day+"일 까지 완성할 글이 "+count+"자 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 

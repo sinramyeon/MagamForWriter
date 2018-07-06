@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/lxn/walk"
 )
@@ -120,4 +121,17 @@ func GetTextNameFromConf() []string {
 		walk.MsgBoxIconInformation)
 
 	return Filename
+}
+
+func GetDDay(day string) int {
+	t := time.Now()
+	dayTime, _ := time.Parse("2006-01-02", day)
+	days := dayTime.Sub(t).Hours() / 24
+
+	return int(days)
+}
+
+func FloatToString(input_num float64) string {
+	// to convert a float number to a string
+	return strconv.FormatFloat(input_num, 'f', 6, 64)
 }
