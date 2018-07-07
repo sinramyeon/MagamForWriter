@@ -73,7 +73,7 @@ func Alarm(day, name, count, countWithoutBlank string) {
 		log.Fatal(err)
 	}
 
-	if err := ni.ShowInfo("마감 알리미", "D-DAY : "+
+	if err := ni.ShowInfo(GetFilename(name), "D-DAY : "+
 		strconv.Itoa(GetDDay(day))+`
 	`+
 		day+"일 까지 완성할 글이 "+count+"자 기록되었습니다."); err != nil {
