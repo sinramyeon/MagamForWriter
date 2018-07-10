@@ -84,11 +84,18 @@ func main() {
 		MinSize: Size{270, 150},
 		Layout:  VBox{},
 		Children: []Widget{
-			PushButton{
-				Text: "마감일 안내받기",
-				OnClicked: func() {
-					day, name, count, countWithoutBlank := GetAlarmText()
-					Alarm(day, name, count, countWithoutBlank)
+
+			GradientComposite{
+				Border: true,
+				Color1: Bind("rgb(R, G, B)"),
+				Children: []Widget{
+					PushButton{
+						Text: "마감일 안내받기",
+						OnClicked: func() {
+							day, name, count, countWithoutBlank := GetAlarmText()
+							Alarm(day, name, count, countWithoutBlank)
+						},
+					},
 				},
 			},
 		},

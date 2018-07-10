@@ -5,6 +5,8 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
+var R, G, B float64
+
 func ColourSetting() {
 	MainWindow{
 		Title:   "디자인 설정",
@@ -57,6 +59,9 @@ func ColourSetting() {
 		},
 		Functions: map[string]func(args ...interface{}) (interface{}, error){
 			"rgb": func(args ...interface{}) (interface{}, error) {
+				R = (args[0].(float64))
+				G = (args[1].(float64))
+				B = (args[2].(float64))
 				return walk.RGB(byte(args[0].(float64)), byte(args[1].(float64)), byte(args[2].(float64))), nil
 			},
 		},
