@@ -37,8 +37,9 @@ func main() {
 						OnTriggered: mw.fileUploadAction_Triggered,
 					},
 					Menu{
-						AssignTo: &recentMenu,
-						Text:     "최근 파일",
+						AssignTo:    &recentMenu,
+						Text:        "최근 파일",
+						OnTriggered: mw.recentFileAction_Triggered,
 					},
 					Separator{},
 					Action{
@@ -85,7 +86,7 @@ func main() {
 		for _, text := range texts {
 			a := walk.NewAction()
 			a.SetText(text)
-			//a.Triggered().Attach(mw.openAction_Triggered)
+			a.Triggered().Attach(mw.recentFileAction_Triggered)
 			recentMenu.Actions().Add(a)
 		}
 	}
@@ -121,4 +122,9 @@ func (mw *MyMainWindow) showAboutBoxAction_Triggered() {
 
 func (mw *MyMainWindow) fileUploadAction_Triggered() {
 	Fileupload()
+}
+
+func (mw *MyMainWindow) recentFileAction_Triggered() {
+	// 클릭한 파일 정보를 얻어서 표시
+	walk.MsgBox(mw, "About", s, walk.MsgBoxIconInformation)
 }
