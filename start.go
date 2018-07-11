@@ -1,6 +1,10 @@
 package main
 
 import (
+	"bufio"
+	"os"
+	"strings"
+
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
 )
@@ -63,6 +67,7 @@ func main() {
 		MinSize: Size{270, 150},
 		Layout:  VBox{},
 		Children: []Widget{
+
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
@@ -75,15 +80,7 @@ func main() {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
-	txtFilesName := GetTextNameFromConf()
-
-	addRecentFileActions := func(texts []string) {
-
-		walk.MsgBox(
-			nil,
-			"addRecentFileActions",
-			"addRecentFileActions",
-			walk.MsgBoxIconInformation)
+	addRecentFileActions := func(texts ...string) {
 
 		for _, text := range texts {
 			a := walk.NewAction()
@@ -93,7 +90,24 @@ func main() {
 		}
 	}
 
-	addRecentFileActions(txtFilesName)
+	f, _ := os.Open("C:\\temp\\magamDday.txt")
+	scanner := bufio.NewScanner(f)
+
+	defer f.Close()
+
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		// Split the line on commas.
+		parts := strings.Split(line, ";")
+
+		// Loop over the parts from the string.
+		for i := range parts {
+
+			addRecentFileActions(parts[i])
+		}
+
+	}
 
 	mw.Run()
 }

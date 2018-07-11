@@ -99,30 +99,6 @@ func WalkError(err error) {
 		walk.MsgBoxOK|walk.MsgBoxIconError)
 }
 
-func GetTextNameFromConf() []string {
-
-	var Filename []string
-	txt := GetFile()
-	filearray := strings.Split(txt, ";") //2018-06-20 C:\windows-version.txt;
-
-	for i := range filearray {
-		oneFile := strings.Split(filearray[i], " ")
-		if len(oneFile) > 0 {
-			name := oneFile[1]
-			Filename = append(Filename, name)
-		}
-	}
-
-	// 여기서부터 접근이 안되고있음 ???????why
-	walk.MsgBox(
-		nil,
-		"GetTextNameFromConf",
-		strings.Join(Filename, ","),
-		walk.MsgBoxIconInformation)
-
-	return Filename
-}
-
 func GetDDay(day string) int {
 	t := time.Now()
 	dayTime, _ := time.Parse("2006-01-02", day)
