@@ -15,7 +15,7 @@ func main() {
 
 	mw := new(MyMainWindow)
 
-	var openAction, showAboutBoxAction, fileUploadAction *walk.Action
+	var openAction, showAboutBoxAction *walk.Action
 	var recentMenu *walk.Menu
 
 	if err := (MainWindow{
@@ -27,7 +27,7 @@ func main() {
 				Items: []MenuItem{
 					Action{
 						AssignTo:    &openAction,
-						Text:        "&File",
+						Text:        "파일 추가",
 						Enabled:     Bind("enabledCB.Checked"),
 						Visible:     Bind("!openHiddenCB.Checked"),
 						OnTriggered: mw.fileUploadAction_Triggered,
@@ -56,27 +56,6 @@ func main() {
 			},
 		},
 
-		ToolBar: ToolBar{
-			ButtonStyle: ToolBarButtonImageBeforeText,
-			Items: []MenuItem{
-				Action{
-					AssignTo:    &fileUploadAction,
-					Text:        "파일 추가",
-					OnTriggered: mw.fileUploadAction_Triggered,
-				},
-				Separator{},
-				Menu{
-					Text: "설정",
-					Items: []MenuItem{
-						Action{
-							Text:        "디자인 바꾸기",
-							OnTriggered: mw.colourAction_Triggered,
-						},
-					},
-				},
-			},
-		},
-
 		ContextMenuItems: []MenuItem{
 			ActionRef{&showAboutBoxAction},
 		},
@@ -84,18 +63,11 @@ func main() {
 		MinSize: Size{270, 150},
 		Layout:  VBox{},
 		Children: []Widget{
-
-			GradientComposite{
-				Border: true,
-				Color1: Bind("rgb(R, G, B)"),
-				Children: []Widget{
-					PushButton{
-						Text: "마감일 안내받기",
-						OnClicked: func() {
-							day, name, count, countWithoutBlank := GetAlarmText()
-							Alarm(day, name, count, countWithoutBlank)
-						},
-					},
+			PushButton{
+				Text: "마감일 안내받기",
+				OnClicked: func() {
+					day, name, count, countWithoutBlank := GetAlarmText()
+					Alarm(day, name, count, countWithoutBlank)
 				},
 			},
 		},
@@ -103,25 +75,25 @@ func main() {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
-	// txtFilesName := GetTextNameFromConf()
+	txtFilesName := GetTextNameFromConf()
 
-	// addRecentFileActions := func(texts []string) {
+	addRecentFileActions := func(texts []string) {
 
-	// 	walk.MsgBox(
-	// 		nil,
-	// 		"addRecentFileActions",
-	// 		"addRecentFileActions",
-	// 		walk.MsgBoxIconInformation)
+		walk.MsgBox(
+			nil,
+			"addRecentFileActions",
+			"addRecentFileActions",
+			walk.MsgBoxIconInformation)
 
-	// 	for _, text := range texts {
-	// 		a := walk.NewAction()
-	// 		a.SetText(text)
-	// 		//a.Triggered().Attach(mw.openAction_Triggered)
-	// 		recentMenu.Actions().Add(a)
-	// 	}
-	// }
+		for _, text := range texts {
+			a := walk.NewAction()
+			a.SetText(text)
+			//a.Triggered().Attach(mw.openAction_Triggered)
+			recentMenu.Actions().Add(a)
+		}
+	}
 
-	// addRecentFileActions(txtFilesName)
+	addRecentFileActions(txtFilesName)
 
 	mw.Run()
 }
@@ -135,8 +107,4 @@ func (mw *MyMainWindow) showAboutBoxAction_Triggered() {
 
 func (mw *MyMainWindow) fileUploadAction_Triggered() {
 	Fileupload()
-}
-
-func (mw *MyMainWindow) colourAction_Triggered() {
-	ColourSetting()
 }
