@@ -19,6 +19,8 @@ func main() {
 
 	mw := new(MyMainWindow)
 
+	var inTe *walk.TextEdit
+
 	var openAction, showAboutBoxAction *walk.Action
 	var recentMenu *walk.Menu
 
@@ -69,6 +71,9 @@ func main() {
 		Layout:  VBox{},
 		Children: []Widget{
 
+			TextEdit{
+				AssignTo: &inTe, ReadOnly: true},
+
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
@@ -88,6 +93,7 @@ func main() {
 			a.SetText(text)
 			a.Triggered().Attach(func() {
 
+				inTe.SetText(a.Text())
 				walk.MsgBox(mw, "About", a.Text(), walk.MsgBoxIconInformation)
 
 			})
