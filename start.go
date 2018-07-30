@@ -93,8 +93,9 @@ func main() {
 			a.SetText(text)
 			a.Triggered().Attach(func() {
 
-				inTe.SetText(a.Text())
-				walk.MsgBox(mw, "About", a.Text(), walk.MsgBoxIconInformation)
+				day, name, count, countNoBlank := SplitTextDay(a.Text())
+
+				inTe.SetText(day + name + count + countNoBlank)
 
 			})
 			recentMenu.Actions().Add(a)
@@ -115,8 +116,9 @@ func main() {
 
 		// Loop over the parts from the string.
 		for i := range parts {
-
-			addRecentFileActions(parts[i])
+			if len(parts[i]) > 1 {
+				addRecentFileActions(parts[i])
+			}
 		}
 
 	}

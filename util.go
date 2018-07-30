@@ -111,3 +111,21 @@ func FloatToString(input_num float64) string {
 	// to convert a float number to a string
 	return strconv.FormatFloat(input_num, 'f', 6, 64)
 }
+
+func SplitTextDay(s string) (string, string, string, string) {
+
+	oneFile := strings.Split(s, " ")
+	if len(oneFile) > 0 {
+
+		dday := oneFile[0]
+		name := strings.Join(oneFile[1:], " ")
+		str := TxtFileOpen(name)
+		count := CountAll(str)
+		countWithoutBlank := CountRemoveBlank(str)
+
+		return dday, name, strconv.Itoa(count), strconv.Itoa(countWithoutBlank)
+
+	}
+
+	return "", "", "", ""
+}
