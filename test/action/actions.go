@@ -155,7 +155,7 @@ func main() {
 		for _, text := range texts {
 			a := walk.NewAction()
 			a.SetText(text)
-			a.Triggered().Attach(mw.openAction_Triggered)
+			a.Triggered().Attach(mw.textAction)
 			recentMenu.Actions().Add(a)
 		}
 	}
@@ -163,6 +163,10 @@ func main() {
 	addRecentFileActions("Foo", "Bar", "Baz")
 
 	mw.Run()
+}
+
+func (mw *MyMainWindow) textAction(t string) {
+	walk.MsgBox(mw, "Open", t, walk.MsgBoxIconInformation)
 }
 
 func (mw *MyMainWindow) openAction_Triggered() {
