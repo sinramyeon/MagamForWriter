@@ -102,9 +102,9 @@ func WalkError(err error) {
 func GetDDay(day string) int {
 	t := time.Now()
 	dayTime, _ := time.Parse("2006-01-02", day)
-	days := dayTime.Sub(t).Hours() / 24
+	days := dayTime.Sub(t)
 
-	return int(days)
+	return int(days.Hours() / 24)
 }
 
 func FloatToString(input_num float64) string {

@@ -101,7 +101,7 @@ func main() {
 
 				day, name, count, countNoBlank := SplitTextDay(a.Text())
 
-				teDay.SetText(day + "일 까지 완성할 글")
+				teDay.SetText(day)
 				teName.SetText(name)
 				teCount.SetText("공백 포함 " + count + " 자")
 				teCountNoBlank.SetText("공백 미포함 " + countNoBlank + " 자")

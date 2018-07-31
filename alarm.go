@@ -52,9 +52,8 @@ func Alarm(day, name, count, countWithoutBlank string) {
 		if err := ni.ShowCustom(
 			GetFilename(name),
 			"D-DAY : "+
-				strconv.Itoa(GetDDay(day))+`
-			`+
-				day+"일 까지 완성할 글이 "+count+countWithoutBlank+" 기록되었습니다."); err != nil {
+				strconv.Itoa(GetDDay(day))+"\n"+
+				day+"일 까지 완성할 글이 "+count+"\n"+countWithoutBlank+" 기록되었습니다."); err != nil {
 
 			log.Fatal(err)
 		}
@@ -74,9 +73,8 @@ func Alarm(day, name, count, countWithoutBlank string) {
 	}
 
 	if err := ni.ShowInfo(GetFilename(name), "D-DAY : "+
-		strconv.Itoa(GetDDay(day))+`
-	`+
-		day+"일 까지 완성할 글이 "+count+countWithoutBlank+" 기록되었습니다."); err != nil {
+		strconv.Itoa(GetDDay(day))+"\n"+
+		day+"일 까지 완성할 글이 "+count+"\n"+countWithoutBlank+" 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 
