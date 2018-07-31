@@ -84,7 +84,7 @@ func main() {
 				Text: "마감일 안내받기",
 				OnClicked: func() {
 					day, name, count, countWithoutBlank := teDay, teName, teCount, teCountNoBlank
-					Alarm(day, name, count, countWithoutBlank)
+					Alarm(day.Text(), name.Text(), count.Text(), countWithoutBlank.Text())
 				},
 			},
 		},
@@ -103,8 +103,8 @@ func main() {
 
 				teDay.SetText(day + "일 까지 완성할 글")
 				teName.SetText(name)
-				teCount.SetText("공포 " + count + " 자")
-				teCountNoBlank.SetText("공미포 " + count + " 자")
+				teCount.SetText("공백 포함 " + count + " 자")
+				teCountNoBlank.SetText("공백 미포함 " + countNoBlank + " 자")
 
 			})
 			recentMenu.Actions().Add(a)
