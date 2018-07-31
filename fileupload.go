@@ -229,7 +229,7 @@ func Fileupload() {
 
 	if err := (MainWindow{
 		AssignTo: &mainWindow,
-		Title:    "작업할 파일을 고르세요(.txt만 지원)",
+		Title:    "작업할 파일을 고르세요(.txt, .doc만 지원)",
 		MinSize:  Size{600, 400},
 		Size:     Size{1024, 640},
 		Layout:   HBox{MarginsZero: true},
@@ -296,29 +296,28 @@ func Fileupload() {
 			PushButton{
 				Text: "등록하기",
 				OnClicked: func() {
-					// 1. txt일때만 등록(나중에 doc도 서포트하자)
+					// 1. txt, .doc일때만 등록
 					if index := tableView.CurrentIndex(); index > -1 {
 
-						if !strings.Contains(tableModel.items[index].Name, "txt") {
+						if !strings.Contains(tableModel.items[index].Name, "txt") && !strings.Contains(tableModel.items[index].Name, "doc") && !strings.Contains(tableModel.items[index].Name, "docx") {
 
 							walk.MsgBox(
 								mainWindow,
 								"파일 형식 오류",
-								".txt파일만 지원합니다",
+								".txt, .doc, .docx파일만 지원합니다",
 								walk.MsgBoxOK|walk.MsgBoxIconError)
 
 						} else {
 
-							// 2. 텍스트 파일 불러오기
 							dir := treeView.CurrentItem().(*Directory)
 							url := filepath.Join(dir.Path(), tableModel.items[index].Name)
 
 							txtFile := TxtFile{}
 							txtFile.path = url
 							txtFile.name = filepath.Base(url)
+							txtFile.DdaySet()
 
 							// 3. 마감일 정하기
-							txtFile.DdaySet()
 							err := SaveFile(txtFile.dday, txtFile.path)
 							if err != nil {
 								walk.MsgBox(

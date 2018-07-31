@@ -1,8 +1,10 @@
 package main
 
 import (
+	"docx"
 	"io/ioutil"
 	"os"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
@@ -44,6 +46,26 @@ func TxtFileOpen(filepath string) string {
 	}
 
 	return string(data)
+}
+
+func DocFileOpen(filepath string) string {
+	r, err := docx.ReadDocxFile(filepath)
+	if err != nil {
+
+		return err.Error()
+	}
+	docx := r.Editable()
+	wholeText := docx.GetText()
+
+	reg, err := regexp.Compile("<[^>]*>")
+	if err != nil {
+		return err.Error()
+	}
+	processedString := reg.ReplaceAllString(wholeText, "")
+	r.Close()
+
+	return processedString
+
 }
 
 func SaveFile(day, filepath string) error {
@@ -113,13 +135,20 @@ func FloatToString(input_num float64) string {
 }
 
 func SplitTextDay(s string) (string, string, string, string) {
-
+	var str string
 	oneFile := strings.Split(s, " ")
 	if len(oneFile) > 0 {
 
 		dday := oneFile[0]
 		name := strings.Join(oneFile[1:], " ")
-		str := TxtFileOpen(name)
+
+		if strings.Contains(name, "txt") {
+			str = TxtFileOpen(name)
+		}
+		if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
+			str = DocFileOpen(name)
+		}
+
 		count := CountAll(str)
 		countWithoutBlank := CountRemoveBlank(str)
 
