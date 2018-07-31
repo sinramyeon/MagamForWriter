@@ -19,7 +19,7 @@ func main() {
 
 	mw := new(MyMainWindow)
 
-	var inTe *walk.TextEdit
+	var teDay, teName, teCount, teCountNoBlank *walk.TextEdit
 
 	var openAction, showAboutBoxAction *walk.Action
 	var recentMenu *walk.Menu
@@ -72,12 +72,18 @@ func main() {
 		Children: []Widget{
 
 			TextEdit{
-				AssignTo: &inTe, ReadOnly: true},
+				AssignTo: &teDay, ReadOnly: true},
+			TextEdit{
+				AssignTo: &teName, ReadOnly: true},
+			TextEdit{
+				AssignTo: &teCount, ReadOnly: true},
+			TextEdit{
+				AssignTo: &teCountNoBlank, ReadOnly: true},
 
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
-					day, name, count, countWithoutBlank := GetAlarmText()
+					day, name, count, countWithoutBlank := teDay, teName, teCount, teCountNoBlank
 					Alarm(day, name, count, countWithoutBlank)
 				},
 			},
@@ -95,7 +101,10 @@ func main() {
 
 				day, name, count, countNoBlank := SplitTextDay(a.Text())
 
-				inTe.SetText(day + name + count + countNoBlank)
+				teDay.SetText(day + "일 까지 완성할 글")
+				teName.SetText(name)
+				teCount.SetText("공포 " + count + " 자")
+				teCountNoBlank.SetText("공미포 " + count + " 자")
 
 			})
 			recentMenu.Actions().Add(a)
