@@ -11,9 +11,17 @@ MIT License!
 
 - [x] .txt확장자 지원
 - [x] 최근등록한 파일들 불러오기
-- [ ] .doc확장자 지원
+- [x] .doc확장자 지원
 - [ ] .hwp확장자 지원
 - [ ] 실시간 글자수 트래킹
 
 ## 다운로드 https://github.com/hero0926/MagamForWriter/releases
 (MagamforWriter.zip을 받으세요!)
+
+---
+
+사용한 라이브러리들
+
+[github.com/lxn/walk](https://github.com/lxn/walk)
+[github.com/lxn/walk/declarative](https://github.com/lxn/walk/declarative)
+[github.com/nguyenthenguyen/docx](github.com/nguyenthenguyen/docx)
