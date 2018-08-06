@@ -158,3 +158,29 @@ func SplitTextDay(s string) (string, string, string, string) {
 
 	return "", "", "", ""
 }
+
+func keepTrackingTxt(name filename) error {
+
+	var str string
+
+	tick := time.Tick(20 * time.Second)
+	if strings.Contains(name, "txt") {
+		str = TxtFileOpen(name)
+	}
+	if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
+		str = DocFileOpen(name)
+	}
+
+	for {
+		select {
+
+		// by 20sec
+		case <-tick:
+
+			count := CountAll(str)
+			countWithoutBlank := CountRemoveBlank(str)
+
+		}
+	}
+
+}

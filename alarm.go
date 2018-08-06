@@ -28,20 +28,12 @@ func Alarm(day, name, count, countWithoutBlank string) {
 
 	if err := ni.SetIcon(icon); err != nil {
 
-		walk.MsgBox(
-			nil,
-			"Error",
-			err.Error(),
-			walk.MsgBoxOK|walk.MsgBoxIconError)
+		WalkError(err)
 	}
 
 	if err := ni.SetToolTip("메뉴를 선택하세요."); err != nil {
 
-		walk.MsgBox(
-			nil,
-			"Error",
-			err.Error(),
-			walk.MsgBoxOK|walk.MsgBoxIconError)
+		WalkError(err)
 	}
 
 	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
