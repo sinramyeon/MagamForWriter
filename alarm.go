@@ -10,7 +10,15 @@ import (
 func Alarm(day, name string) {
 
 	t := TextCount{count: 0, countWithoutBlank: 0}
+
+	// 여기로 아예 접근을 못하고있음
 	t.keepTrackingTxt(name)
+
+	walk.MsgBox(
+		nil,
+		"글자수 Alarm",
+		"글자수 알람",
+		walk.MsgBoxOK|walk.MsgBoxIconError)
 
 	mw, err := walk.NewMainWindow()
 	if err != nil {

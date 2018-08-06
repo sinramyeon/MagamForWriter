@@ -159,11 +159,12 @@ func SplitTextDay(s string) (string, string, string, string) {
 	return "", "", "", ""
 }
 
-func (t TextCount) keepTrackingTxt(name string) error {
+func (t TextCount) keepTrackingTxt(name string) {
 
 	var str string
 
 	tick := time.Tick(20 * time.Second)
+
 	if strings.Contains(name, "txt") {
 		str = TxtFileOpen(name)
 	}
