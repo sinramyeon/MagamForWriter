@@ -25,6 +25,11 @@ type TxtFile struct {
 	dday  string
 }
 
+type TextCount struct {
+	count             int
+	countWithoutBlank int
+}
+
 type DirectoryTreeModel struct {
 	walk.TreeModelBase
 	roots []*Directory
@@ -328,9 +333,9 @@ func Fileupload() {
 							}
 
 							// 4. 알리미로 넘어가기
-							day, name, count, countWithoutBlank := GetAlarmText()
+							day, name, _, _ := GetAlarmText()
 							mainWindow.Close()
-							Alarm(day, name, count, countWithoutBlank)
+							Alarm(day, name)
 
 						}
 

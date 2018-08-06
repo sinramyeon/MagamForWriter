@@ -159,7 +159,7 @@ func SplitTextDay(s string) (string, string, string, string) {
 	return "", "", "", ""
 }
 
-func keepTrackingTxt(name filename) error {
+func (t TextCount) keepTrackingTxt(name string) error {
 
 	var str string
 
@@ -177,8 +177,8 @@ func keepTrackingTxt(name filename) error {
 		// by 20sec
 		case <-tick:
 
-			count := CountAll(str)
-			countWithoutBlank := CountRemoveBlank(str)
+			t.count = CountAll(str)
+			t.countWithoutBlank = CountRemoveBlank(str)
 
 		}
 	}

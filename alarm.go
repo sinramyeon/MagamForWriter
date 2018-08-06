@@ -7,7 +7,10 @@ import (
 	"github.com/lxn/walk"
 )
 
-func Alarm(day, name, count, countWithoutBlank string) {
+func Alarm(day, name string) {
+
+	t := TextCount{count: 0, countWithoutBlank: 0}
+	t.keepTrackingTxt(name)
 
 	mw, err := walk.NewMainWindow()
 	if err != nil {
@@ -45,7 +48,7 @@ func Alarm(day, name, count, countWithoutBlank string) {
 			GetFilename(name),
 			"D-DAY : "+
 				strconv.Itoa(GetDDay(day))+"\n"+
-				day+"일 까지 완성할 글이 "+count+"\n"+countWithoutBlank+" 기록되었습니다."); err != nil {
+				day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(t.count)+"\n공백 미포함"+strconv.Itoa(t.countWithoutBlank)+" 기록되었습니다."); err != nil {
 
 			log.Fatal(err)
 		}
@@ -64,9 +67,10 @@ func Alarm(day, name, count, countWithoutBlank string) {
 		log.Fatal(err)
 	}
 
-	if err := ni.ShowInfo(GetFilename(name), "D-DAY : "+
-		strconv.Itoa(GetDDay(day))+"\n"+
-		day+"일 까지 완성할 글이 "+count+"\n"+countWithoutBlank+" 기록되었습니다."); err != nil {
+	if err := ni.ShowInfo(GetFilename(name),
+		"D-DAY : "+
+			strconv.Itoa(GetDDay(day))+"\n"+
+			day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(t.count)+"\n공백 미포함"+strconv.Itoa(t.countWithoutBlank)+" 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 

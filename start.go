@@ -83,8 +83,8 @@ func main() {
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
-					day, name, count, countWithoutBlank := teDay, teName, teCount, teCountNoBlank
-					Alarm(day.Text(), name.Text(), count.Text(), countWithoutBlank.Text())
+					day, name := teDay, teName
+					Alarm(day.Text(), name.Text())
 				},
 			},
 		},
