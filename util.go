@@ -159,11 +159,11 @@ func SplitTextDay(s string) (string, string, string, string) {
 	return "", "", "", ""
 }
 
-func (t TextCount) keepTrackingTxt(name string) {
+func (t TextCount) KeepTrackingTxt(name string) {
 
 	var str string
 
-	tick := time.Tick(20 * time.Second)
+	//tick := time.Tick(20 * time.Second)
 
 	if strings.Contains(name, "txt") {
 		str = TxtFileOpen(name)
@@ -172,16 +172,28 @@ func (t TextCount) keepTrackingTxt(name string) {
 		str = DocFileOpen(name)
 	}
 
-	for {
-		select {
+	// walk.MsgBox(
+	// 	nil,
+	// 	"글자수 Alarm",
+	// 	str,
+	// 	walk.MsgBoxOK|walk.MsgBoxIconError)
 
-		// by 20sec
-		case <-tick:
+	// for {
+	// 	select {
 
-			t.count = CountAll(str)
-			t.countWithoutBlank = CountRemoveBlank(str)
+	// 	// by 20sec
+	// 	case <-tick:
 
-		}
-	}
+	// 		walk.MsgBox(
+	// 			nil,
+	// 			"글자수 Alarm",
+	// 			str,
+	// 			walk.MsgBoxOK|walk.MsgBoxIconError)
+
+	t.count = CountAll(str)
+	t.countWithoutBlank = CountRemoveBlank(str)
+
+	// 	}
+	// }
 
 }

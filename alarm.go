@@ -3,22 +3,15 @@ package main
 import (
 	"log"
 	"strconv"
+	"time"
 
 	"github.com/lxn/walk"
 )
 
+var count int
+var countWithoutBlank int
+
 func Alarm(day, name string) {
-
-	t := TextCount{count: 0, countWithoutBlank: 0}
-
-	// 여기로 아예 접근을 못하고있음
-	t.keepTrackingTxt(name)
-
-	walk.MsgBox(
-		nil,
-		"글자수 Alarm",
-		"글자수 알람",
-		walk.MsgBoxOK|walk.MsgBoxIconError)
 
 	mw, err := walk.NewMainWindow()
 	if err != nil {
@@ -47,6 +40,16 @@ func Alarm(day, name string) {
 		WalkError(err)
 	}
 
+	go func() {
+
+		for {
+			time.Sleep(1 * time.Second)
+			str := TxtFileOpen(name)
+			count = CountAll(str)
+			countWithoutBlank = CountRemoveBlank(str)
+		}
+	}()
+
 	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
 		if button != walk.LeftButton {
 			return
@@ -56,7 +59,7 @@ func Alarm(day, name string) {
 			GetFilename(name),
 			"D-DAY : "+
 				strconv.Itoa(GetDDay(day))+"\n"+
-				day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(t.count)+"\n공백 미포함"+strconv.Itoa(t.countWithoutBlank)+" 기록되었습니다."); err != nil {
+				day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(count)+"자\n공백 미포함"+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다."); err != nil {
 
 			log.Fatal(err)
 		}
@@ -78,7 +81,7 @@ func Alarm(day, name string) {
 	if err := ni.ShowInfo(GetFilename(name),
 		"D-DAY : "+
 			strconv.Itoa(GetDDay(day))+"\n"+
-			day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(t.count)+"\n공백 미포함"+strconv.Itoa(t.countWithoutBlank)+" 기록되었습니다."); err != nil {
+			day+"일 까지 완성할 글이 공백 포함"+strconv.Itoa(count)+"자\n공백 미포함"+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 
