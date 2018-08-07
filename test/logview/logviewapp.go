@@ -13,19 +13,61 @@ import (
 	"strconv"
 
 	"github.com/lxn/walk"
-	. "github.com/lxn/walk/declarative"
 )
 
 func main() {
-	var mw *walk.MainWindow
 
-	if err := (MainWindow{
-		AssignTo: &mw,
-		Title:    "Walk LogView Example",
-		MinSize:  Size{320, 240},
-		Size:     Size{400, 600},
-		Layout:   VBox{MarginsZero: true},
-	}.Create()); err != nil {
+	var count string
+
+	mw, err := walk.NewMainWindow()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	ni, err := walk.NewNotifyIcon()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	defer ni.Dispose()
+
+	go func() {
+		for i := 0; i < 10000; i++ {
+			time.Sleep(1 * time.Second)
+			str := TxtFileOpen("D:\\새 텍스트 문서.txt")
+			count = strconv.Itoa(CountAll(str))
+		}
+	}()
+
+	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
+		if button != walk.LeftButton {
+			return
+		}
+
+		if err := ni.ShowCustom(
+			"TEST",
+			"공백 포함"+count+" 기록되었습니다."); err != nil {
+
+			log.Fatal(err)
+		}
+	})
+
+	exitAction := walk.NewAction()
+	if err := exitAction.SetText("종료"); err != nil {
+		log.Fatal(err)
+	}
+	exitAction.Triggered().Attach(func() { walk.App().Exit(0) })
+	if err := ni.ContextMenu().Actions().Add(exitAction); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := ni.SetVisible(true); err != nil {
+		log.Fatal(err)
+	}
+
+	if err := ni.ShowInfo(
+		"TEST",
+		"공백 포함"+count+" 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 
@@ -35,15 +77,6 @@ func main() {
 	}
 
 	log.SetOutput(lv)
-
-	go func() {
-		for i := 0; i < 10000; i++ {
-			time.Sleep(1 * time.Second)
-
-			str := TxtFileOpen("D:\\새 텍스트 문서.txt")
-			log.Println(strconv.Itoa(CountAll(str)) + "\r\n")
-		}
-	}()
 
 	mw.Run()
 }
