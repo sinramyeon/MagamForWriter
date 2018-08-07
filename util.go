@@ -123,12 +123,19 @@ func WalkError(err error) {
 
 func GetDDay(day string) int {
 	t := time.Now()
-	dayTime, _ := time.Parse("2006-01-02", day)
-	days := dayTime.Sub(t)
+	dayTime, err := time.Parse("2018-01-02", day) // parsing time "2018-09-07" as "2018-01-02" cannot parse "2018-09-02" as "2" 에러
+	//도대체 뭔소리임 왜 parse가 안돼 ;;;;;;
 
-	if days < 0 { // 2018-09-08
-		return 0
+	if err != nil {
+
+		walk.MsgBox(
+			nil,
+			"Error",
+			err.Error(),
+			walk.MsgBoxOK|walk.MsgBoxIconError)
+
 	}
+	days := dayTime.Sub(t)
 
 	return int(days.Hours() / 24)
 }
@@ -144,6 +151,7 @@ func SplitTextDay(s string) (string, string, string, string) {
 	if len(oneFile) > 0 {
 
 		dday := oneFile[0]
+
 		name := strings.Join(oneFile[1:], " ")
 
 		if strings.Contains(name, "txt") {
@@ -161,43 +169,4 @@ func SplitTextDay(s string) (string, string, string, string) {
 	}
 
 	return "", "", "", ""
-}
-
-func (t TextCount) KeepTrackingTxt(name string) {
-
-	var str string
-
-	//tick := time.Tick(20 * time.Second)
-
-	if strings.Contains(name, "txt") {
-		str = TxtFileOpen(name)
-	}
-	if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
-		str = DocFileOpen(name)
-	}
-
-	// walk.MsgBox(
-	// 	nil,
-	// 	"글자수 Alarm",
-	// 	str,
-	// 	walk.MsgBoxOK|walk.MsgBoxIconError)
-
-	// for {
-	// 	select {
-
-	// 	// by 20sec
-	// 	case <-tick:
-
-	// 		walk.MsgBox(
-	// 			nil,
-	// 			"글자수 Alarm",
-	// 			str,
-	// 			walk.MsgBoxOK|walk.MsgBoxIconError)
-
-	t.count = CountAll(str)
-	t.countWithoutBlank = CountRemoveBlank(str)
-
-	// 	}
-	// }
-
 }
