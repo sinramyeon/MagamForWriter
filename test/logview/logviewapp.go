@@ -6,12 +6,9 @@ package main
 
 import (
 	"log"
-	"time"
 )
 
 import (
-	"strconv"
-
 	"github.com/lxn/walk"
 )
 
@@ -30,14 +27,6 @@ func main() {
 	}
 
 	defer ni.Dispose()
-
-	go func() {
-		for i := 0; i < 10000; i++ {
-			time.Sleep(1 * time.Second)
-			str := TxtFileOpen("D:\\새 텍스트 문서.txt")
-			count = strconv.Itoa(CountAll(str))
-		}
-	}()
 
 	ni.MouseDown().Attach(func(x, y int, button walk.MouseButton) {
 		if button != walk.LeftButton {

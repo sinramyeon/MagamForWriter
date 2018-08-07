@@ -25,11 +25,6 @@ type TxtFile struct {
 	dday  string
 }
 
-type TextCount struct {
-	count             int
-	countWithoutBlank int
-}
-
 type DirectoryTreeModel struct {
 	walk.TreeModelBase
 	roots []*Directory

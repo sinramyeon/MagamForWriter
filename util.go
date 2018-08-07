@@ -126,6 +126,10 @@ func GetDDay(day string) int {
 	dayTime, _ := time.Parse("2006-01-02", day)
 	days := dayTime.Sub(t)
 
+	if days < 0 { // 2018-09-08
+		return 0
+	}
+
 	return int(days.Hours() / 24)
 }
 
