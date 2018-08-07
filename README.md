@@ -12,11 +12,17 @@ MIT License!
 - [x] .txt확장자 지원
 - [x] 최근등록한 파일들 불러오기
 - [x] .doc확장자 지원
+- [x] 실시간 글자수 트래킹
 - [ ] .hwp확장자 지원
-- [ ] 실시간 글자수 트래킹
 
 ## 다운로드 https://github.com/hero0926/MagamForWriter/releases
 (MagamforWriter.zip을 받으세요!)
+
+* 0.0.3 기능에 추가될 예정입니다
+
+- 실시간 글자수 트래킹
+- 디데이 계산 오류 수정
+- 항상 위
 
 ---
 
