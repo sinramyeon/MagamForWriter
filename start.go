@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/lxn/walk"
@@ -19,7 +20,7 @@ func main() {
 
 	mw := new(MyMainWindow)
 
-	var teDay, teName, teCount, teCountNoBlank *walk.TextEdit
+	var teDay, teDayCount, teName, teCount, teCountNoBlank *walk.TextEdit
 
 	var openAction, showAboutBoxAction *walk.Action
 	var recentMenu *walk.Menu
@@ -73,6 +74,9 @@ func main() {
 
 			TextEdit{
 				AssignTo: &teDay, ReadOnly: true},
+
+			TextEdit{
+				AssignTo: &teDayCount, ReadOnly: true},
 			TextEdit{
 				AssignTo: &teName, ReadOnly: true},
 			TextEdit{
@@ -100,8 +104,9 @@ func main() {
 			a.Triggered().Attach(func() {
 
 				day, name, count, countNoBlank := SplitTextDay(a.Text())
-
+				dayCount := GetDDay(day)
 				teDay.SetText(day)
+				teDayCount.SetText(strconv.Itoa(dayCount))
 				teName.SetText(name)
 				teCount.SetText("공백 포함 " + count + " 자")
 				teCountNoBlank.SetText("공백 미포함 " + countNoBlank + " 자")
