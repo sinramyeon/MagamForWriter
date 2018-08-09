@@ -174,26 +174,19 @@ func SplitTextDay(s string) (string, string, string, string) {
 	return "", "", "", ""
 }
 
-func CountFile(s string) (int, int) {
+func CountFile(name string) (int, int) {
 	var str string
-	oneFile := strings.Split(s, " ")
-	if len(oneFile) > 0 {
 
-		name := strings.Join(oneFile[1:], " ")
-
-		if strings.Contains(name, "txt") {
-			str = TxtFileOpen(name)
-		}
-		if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
-			str = DocFileOpen(name)
-		}
-
-		count := CountAll(str)
-		countWithoutBlank := CountRemoveBlank(str)
-
-		return count, countWithoutBlank
-
+	if strings.Contains(name, "txt") {
+		str = TxtFileOpen(name)
+	}
+	if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
+		str = DocFileOpen(name)
 	}
 
-	return 0, 0
+	count := CountAll(str)
+	countWithoutBlank := CountRemoveBlank(str)
+
+	return count, countWithoutBlank
+
 }
