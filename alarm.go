@@ -40,13 +40,11 @@ func Alarm(day, name string) {
 		WalkError(err)
 	}
 
-	go func() {
+	go func() { //
 
 		for {
 			time.Sleep(1 * time.Second)
-			str := TxtFileOpen(name)
-			count = CountAll(str)
-			countWithoutBlank = CountRemoveBlank(str)
+			count, countWithoutBlank = CountFile(name)
 		}
 	}()
 
