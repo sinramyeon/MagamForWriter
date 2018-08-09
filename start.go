@@ -73,15 +73,20 @@ func main() {
 		Children: []Widget{
 
 			TextEdit{
+				Text:     "D-DAY",
 				AssignTo: &teDay, ReadOnly: true},
 
 			TextEdit{
+				Text:     "D-DAY까지 남은 날",
 				AssignTo: &teDayCount, ReadOnly: true},
 			TextEdit{
+				Text:     "원고 이름",
 				AssignTo: &teName, ReadOnly: true},
 			TextEdit{
+				Text:     "공백 포함 글자수",
 				AssignTo: &teCount, ReadOnly: true},
 			TextEdit{
+				Text:     "공백 미포함 글자수",
 				AssignTo: &teCountNoBlank, ReadOnly: true},
 
 			PushButton{

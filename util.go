@@ -123,8 +123,9 @@ func WalkError(err error) {
 
 func GetDDay(day string) int {
 	t := time.Now()
-	dayTime, err := time.Parse("2018-01-02", day) // parsing time "2018-09-07" as "2018-01-02" cannot parse "2018-09-02" as "2" 에러
-	//도대체 뭔소리임 왜 parse가 안돼 ;;;;;;
+	layout := "2006-01-02"
+
+	dayTime, err := time.Parse(layout, day)
 
 	if err != nil {
 
@@ -133,6 +134,8 @@ func GetDDay(day string) int {
 			"Error",
 			err.Error(),
 			walk.MsgBoxOK|walk.MsgBoxIconError)
+
+		return 0
 
 	}
 	days := dayTime.Sub(t)
