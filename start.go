@@ -10,7 +10,7 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
-var isSpecialMode = walk.NewMutableCondition()
+var IsSpecialMode = walk.NewMutableCondition()
 
 type MyMainWindow struct {
 	*walk.MainWindow
@@ -20,6 +20,7 @@ func main() {
 
 	mw := new(MyMainWindow)
 
+	var toggleSpecialModePB *walk.PushButton
 	var teDay, teDayCount, teName, teCount, teCountNoBlank *walk.TextEdit
 
 	var openAction, showAboutBoxAction *walk.Action
@@ -88,6 +89,20 @@ func main() {
 			TextEdit{
 				Text:     "공백 미포함 글자수",
 				AssignTo: &teCountNoBlank, ReadOnly: true},
+
+			PushButton{
+				AssignTo: &toggleSpecialModePB,
+				Text:     "항상 위 기능",
+				OnClicked: func() {
+					IsSpecialMode.SetSatisfied(!IsSpecialMode.Satisfied())
+
+					if IsSpecialMode.Satisfied() {
+						toggleSpecialModePB.SetText("항상 위 기능 켜짐")
+					} else {
+						toggleSpecialModePB.SetText("항상 위 기능 꺼짐")
+					}
+				},
+			},
 
 			PushButton{
 				Text: "마감일 안내받기",

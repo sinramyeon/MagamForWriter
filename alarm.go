@@ -45,10 +45,15 @@ func Alarm(day, name string) {
 		for {
 			time.Sleep(1 * time.Second)
 			count, countWithoutBlank = CountFile(name)
-			ni.ShowMessage(GetFilename(name),
-				"D-DAY : "+
-					strconv.Itoa(GetDDay(day))+"\n"+
-					day+"일 까지 완성할 글이 공백 포함 "+strconv.Itoa(count)+"자\n공백 미포함 "+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다.")
+
+			if IsSpecialMode.Satisfied() {
+				ni.ShowMessage(GetFilename(name),
+					"D-DAY : "+
+						strconv.Itoa(GetDDay(day))+"\n"+
+						day+"일 까지 완성할 글이 공백 포함 "+strconv.Itoa(count)+"자\n공백 미포함 "+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다.")
+
+			}
+
 		}
 	}()
 
