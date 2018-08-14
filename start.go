@@ -10,6 +10,8 @@ import (
 	. "github.com/lxn/walk/declarative"
 )
 
+// go build -ldflags="-H windowsgui"
+
 var IsSpecialMode = walk.NewMutableCondition()
 
 type MyMainWindow struct {

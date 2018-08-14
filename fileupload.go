@@ -304,7 +304,7 @@ func Fileupload() {
 							walk.MsgBox(
 								mainWindow,
 								"파일 형식 오류",
-								".txt, .doc, .docx파일만 지원합니다",
+								tableModel.items[index].Name+" : .txt, .doc, .docx파일만 지원합니다",
 								walk.MsgBoxOK|walk.MsgBoxIconError)
 
 						} else {
