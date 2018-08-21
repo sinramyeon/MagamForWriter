@@ -122,10 +122,16 @@ func WalkError(err error) {
 }
 
 func GetDDay(day string) int {
-	t := time.Now()
-	layout := "2006-01-02"
 
-	dayTime, err := time.Parse(layout, day)
+	now := time.Now().Format("2006-01-02")
+
+	walk.MsgBox(
+		nil,
+		"GetDDay",
+		day,
+		walk.MsgBoxOK|walk.MsgBoxIconError)
+
+	t, err := time.Parse(now, day)
 
 	if err != nil {
 
@@ -138,7 +144,9 @@ func GetDDay(day string) int {
 		return 0
 
 	}
-	days := dayTime.Sub(t)
+
+	rightnow := time.Now()
+	days := rightnow.Sub(t)
 
 	return int(days.Hours() / 24)
 }
