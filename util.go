@@ -2,6 +2,7 @@ package main
 
 import (
 	"docx"
+	"encoding/json"
 	"io/ioutil"
 	"os"
 	"regexp"
@@ -11,6 +12,11 @@ import (
 
 	"github.com/lxn/walk"
 )
+
+type Configuration struct {
+	Dday     string
+	Filename string
+}
 
 func GetFilename(filePath string) string {
 	i := strings.Index(filePath, "\\")
@@ -69,13 +75,14 @@ func DocFileOpen(filepath string) string {
 }
 
 func SaveFile(day, filepath string) error {
-	txt := day + " " + filepath + ";" //2018-06-20 C:\windows-version.txt;
-	var file, err = os.OpenFile("C:\\temp\\magamDday.txt", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
-	defer file.Close()
 
-	_, err = file.WriteString(txt)
+	configuration := Configuration{
+		Dday:     day,
+		Filename: filepath,
+	}
 
-	file.Sync()
+	confJson, _ := json.Marshal(configuration)
+	err := ioutil.WriteFile("conf.json", confJson, os.ModePerm)
 
 	return err
 }

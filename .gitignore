@@ -2,3 +2,4 @@
 *.exe
 *.exe~
 MagamForWriter.exe
+test/doctest/test.docx
