@@ -109,6 +109,9 @@ func main() {
 			PushButton{
 				Text: "마감일 안내받기",
 				OnClicked: func() {
+					if teDay.Text() == "D-DAY" {
+						return
+					}
 					day, name := teDay, teName
 					Alarm(day.Text(), name.Text())
 				},
@@ -140,18 +143,19 @@ func main() {
 
 	}
 
-	jsonFile, err := os.Open("C:\\temp\\conf.json")
+	jsonFile, err := os.Open(ConfFilePath)
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
-	var conf Configurations
+	var conf []Configuration
 	json.Unmarshal(byteValue, &conf)
 
 	if err != nil {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
-	for _, v := range conf.Configurations {
+	// conf 의 json을 읽어왔는데 비어있다고 나오는중
+	for _, v := range conf {
 
 		walk.MsgBox(mw, "체크", v.Filename+v.Dday, walk.MsgBoxIconInformation)
 		addRecentFileActions(v)

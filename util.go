@@ -20,10 +20,6 @@ type Configuration struct {
 	Filename string `json:"Filename"`
 }
 
-type Configurations struct {
-	Configurations []Configuration
-}
-
 func GetFilename(filePath string) string {
 	i := strings.Index(filePath, "\\")
 	if i > -1 {
