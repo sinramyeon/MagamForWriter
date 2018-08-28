@@ -327,11 +327,6 @@ func Fileupload() {
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
 
-							// 4. 알리미로 넘어가기
-							day, name, _, _ := GetAlarmText()
-							mainWindow.Close()
-							Alarm(day, name)
-
 						}
 
 					}

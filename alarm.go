@@ -8,8 +8,8 @@ import (
 	"github.com/lxn/walk"
 )
 
-var count int
-var countWithoutBlank int
+var count string
+var countWithoutBlank string
 
 func Alarm(day, name string) {
 
@@ -50,7 +50,7 @@ func Alarm(day, name string) {
 				ni.ShowMessage(GetFilename(name),
 					"D-DAY : "+
 						strconv.Itoa(GetDDay(day))+"\n"+
-						day+"일 까지 완성할 글이 공백 포함 "+strconv.Itoa(count)+"자\n공백 미포함 "+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다.")
+						day+"일 까지 완성할 글이 공백 포함 "+count+"자\n공백 미포함 "+countWithoutBlank+"자 기록되었습니다.")
 
 			}
 
@@ -66,7 +66,7 @@ func Alarm(day, name string) {
 			GetFilename(name),
 			"D-DAY : "+
 				strconv.Itoa(GetDDay(day))+"\n"+
-				day+"일 까지 완성할 글이 공백 포함 "+strconv.Itoa(count)+"자\n공백 미포함 "+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다."); err != nil {
+				day+"일 까지 완성할 글이 공백 포함 "+count+"자\n공백 미포함 "+countWithoutBlank+"자 기록되었습니다."); err != nil {
 
 			log.Fatal(err)
 		}
@@ -88,7 +88,7 @@ func Alarm(day, name string) {
 	if err := ni.ShowInfo(GetFilename(name),
 		"D-DAY : "+
 			strconv.Itoa(GetDDay(day))+"\n"+
-			day+"일 까지 완성할 글이 공백 포함 "+strconv.Itoa(count)+"자\n공백 미포함 "+strconv.Itoa(countWithoutBlank)+"자 기록되었습니다."); err != nil {
+			day+"일 까지 완성할 글이 공백 포함 "+count+"자\n공백 미포함 "+countWithoutBlank+"자 기록되었습니다."); err != nil {
 		log.Fatal(err)
 	}
 

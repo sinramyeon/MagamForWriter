@@ -1,10 +1,10 @@
 package main
 
 import (
-	"bufio"
+	"encoding/json"
+	"io/ioutil"
 	"os"
 	"strconv"
-	"strings"
 
 	"github.com/lxn/walk"
 	. "github.com/lxn/walk/declarative"
@@ -118,44 +118,38 @@ func main() {
 		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
 	}
 
-	addRecentFileActions := func(texts ...string) {
+	addRecentFileActions := func(conf Configuration) {
 
-		for _, text := range texts {
-			a := walk.NewAction()
-			a.SetText(text)
-			a.Triggered().Attach(func() {
+		a := walk.NewAction()
+		a.SetText(conf.Filename)
+		a.Triggered().Attach(func() {
 
-				day, name, count, countNoBlank := SplitTextDay(a.Text())
-				dayCount := GetDDay(day)
-				teDay.SetText(day)
-				teDayCount.SetText(strconv.Itoa(dayCount))
-				teName.SetText(name)
-				teCount.SetText("공백 포함 " + count + " 자")
-				teCountNoBlank.SetText("공백 미포함 " + countNoBlank + " 자")
+			day := conf.Dday
+			filename := conf.Filename
 
-			})
-			recentMenu.Actions().Add(a)
+			count, countNoBlank := CountFile(filename)
+			dayCount := GetDDay(day)
+			teDay.SetText(day)
+			teDayCount.SetText(strconv.Itoa(dayCount))
+			teName.SetText(filename)
+			teCount.SetText("공백 포함 " + count + " 자")
+			teCountNoBlank.SetText("공백 미포함 " + countNoBlank + " 자")
 
-		}
+		})
+		recentMenu.Actions().Add(a)
+
 	}
 
-	f, _ := os.Open("C:\\temp\\magamDday.txt")
-	scanner := bufio.NewScanner(f)
+	jsonFile, _ := os.Open("C:\\temp\\conf.json")
+	defer jsonFile.Close()
 
-	defer f.Close()
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	var conf Configurations
+	json.Unmarshal(byteValue, &conf)
 
-	for scanner.Scan() {
-		line := scanner.Text()
+	for _, v := range conf.Configurations {
 
-		// Split the line on commas.
-		parts := strings.Split(line, ";")
-
-		// Loop over the parts from the string.
-		for i := range parts {
-			if len(parts[i]) > 1 {
-				addRecentFileActions(parts[i])
-			}
-		}
+		addRecentFileActions(v)
 
 	}
 

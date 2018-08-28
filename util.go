@@ -18,6 +18,10 @@ type Configuration struct {
 	Filename string
 }
 
+type Configurations struct {
+	Configurations []Configuration
+}
+
 func GetFilename(filePath string) string {
 	i := strings.Index(filePath, "\\")
 	if i > -1 {
@@ -82,7 +86,7 @@ func SaveFile(day, filepath string) error {
 	}
 
 	confJson, _ := json.Marshal(configuration)
-	err := ioutil.WriteFile("conf.json", confJson, os.ModePerm)
+	err := ioutil.WriteFile("C:\\temp\\conf.json", confJson, os.ModePerm)
 
 	return err
 }
@@ -163,33 +167,7 @@ func FloatToString(input_num float64) string {
 	return strconv.FormatFloat(input_num, 'f', 6, 64)
 }
 
-func SplitTextDay(s string) (string, string, string, string) {
-	var str string
-	oneFile := strings.Split(s, " ")
-	if len(oneFile) > 0 {
-
-		dday := oneFile[0]
-
-		name := strings.Join(oneFile[1:], " ")
-
-		if strings.Contains(name, "txt") {
-			str = TxtFileOpen(name)
-		}
-		if strings.Contains(name, "doc") || strings.Contains(name, "docx") {
-			str = DocFileOpen(name)
-		}
-
-		count := CountAll(str)
-		countWithoutBlank := CountRemoveBlank(str)
-
-		return dday, name, strconv.Itoa(count), strconv.Itoa(countWithoutBlank)
-
-	}
-
-	return "", "", "", ""
-}
-
-func CountFile(name string) (int, int) {
+func CountFile(name string) (string, string) {
 	var str string
 
 	if strings.Contains(name, "txt") {
@@ -202,6 +180,6 @@ func CountFile(name string) (int, int) {
 	count := CountAll(str)
 	countWithoutBlank := CountRemoveBlank(str)
 
-	return count, countWithoutBlank
+	return strconv.Itoa(count), strconv.Itoa(countWithoutBlank)
 
 }
