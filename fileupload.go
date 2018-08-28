@@ -327,6 +327,8 @@ func Fileupload() {
 									walk.MsgBoxOK|walk.MsgBoxIconError)
 							}
 
+							Alarm(txtFile.dday, txtFile.path)
+
 							mainWindow.Close()
 
 						}
