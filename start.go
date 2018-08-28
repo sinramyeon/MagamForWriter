@@ -140,15 +140,20 @@ func main() {
 
 	}
 
-	jsonFile, _ := os.Open("C:\\temp\\conf.json")
+	jsonFile, err := os.Open("C:\\temp\\conf.json")
 	defer jsonFile.Close()
 
 	byteValue, _ := ioutil.ReadAll(jsonFile)
 	var conf Configurations
 	json.Unmarshal(byteValue, &conf)
 
+	if err != nil {
+		walk.MsgBox(mw, "err", err.Error(), walk.MsgBoxIconInformation)
+	}
+
 	for _, v := range conf.Configurations {
 
+		walk.MsgBox(mw, "체크", v.Filename+v.Dday, walk.MsgBoxIconInformation)
 		addRecentFileActions(v)
 
 	}

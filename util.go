@@ -13,9 +13,11 @@ import (
 	"github.com/lxn/walk"
 )
 
+const ConfFilePath = "C:\\temp\\conf.json"
+
 type Configuration struct {
-	Dday     string
-	Filename string
+	Dday     string `json:"Dday"`
+	Filename string `json:"Filename"`
 }
 
 type Configurations struct {
@@ -86,7 +88,17 @@ func SaveFile(day, filepath string) error {
 	}
 
 	confJson, _ := json.Marshal(configuration)
-	err := ioutil.WriteFile("C:\\temp\\conf.json", confJson, os.ModePerm)
+
+	f, err := os.OpenFile(ConfFilePath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		return err
+	}
+	if _, err := f.Write(confJson); err != nil {
+		return err
+	}
+	if err := f.Close(); err != nil {
+		return err
+	}
 
 	return err
 }
@@ -117,7 +129,7 @@ func GetAlarmText() (string, string, string, string) {
 
 func GetFile() string {
 	// 1. 파일 가져오기
-	var file, err = ioutil.ReadFile("C:\\temp\\magamDday.txt")
+	var file, err = ioutil.ReadFile(ConfFilePath)
 	if err != nil {
 		WalkError(err)
 	}
